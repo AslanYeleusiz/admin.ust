@@ -26,6 +26,7 @@ class TurnirUserController extends Controller
             ->when($fio_user, fn($query) => $query->where('fio_user', 'like', "%$fio_user%"))
             ->when($turnir_name, fn($query) => $query->where('turnir_name', 'like', "%$turnir_name%"))
             ->latest('id')
+            ->has('user')
             ->when($order_id, fn($query) => $query->where('order_id', $order_id))
             ->paginate($request->input('per_page', 20))
             ->appends($request->except('page'));

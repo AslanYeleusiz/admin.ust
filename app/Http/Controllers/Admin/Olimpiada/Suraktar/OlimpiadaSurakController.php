@@ -56,7 +56,7 @@ class OlimpiadaSurakController extends Controller
             'archive' => $request->archive,
             'tusinik' => $request->tusinik ?? " ",
         ]);
-        $zhauaptar = $request->zhauaptar;
+        $zhauaptar = $request->zhauap;
         foreach ($zhauaptar as $key=>$zhauap) {
             $zhauap_id = $key == $request->correct_answer_number ? 1 : 0;
             TestZhauaptar::create([
@@ -89,7 +89,7 @@ class OlimpiadaSurakController extends Controller
     public function edit($bagyt_id, $option_id, $id)
     {
         $testSurak = TestSuraktar
-        ::with('zhauaptar')->findOrFail($id);
+        ::with('zhauap')->findOrFail($id);
         $zhauaptar = TestZhauaptar::where('surak_id', $id)->get();
         foreach($zhauaptar as $key=>$zhauap){
             if($zhauap->zhauap_id == 1) $testSurak->correct_answer_number = $key;
@@ -114,7 +114,7 @@ class OlimpiadaSurakController extends Controller
             'surak' => $request->surak,
             'tusinik' => $request->tusinik ?? " ",
         ]);
-        $zhauaptar = $request->zhauaptar;
+        $zhauaptar = $request->zhauap;
         foreach($zhauaptar as $key=>$zhauap){
             $zhauap_id = $key == $request->correct_answer_number ? 1 : 0;
             TestZhauaptar::findOrFail($zhauap['id'])->update([

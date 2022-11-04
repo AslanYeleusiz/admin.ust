@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Olimpiada\OlimpiadaBagytController;
 use App\Http\Controllers\Admin\Olimpiada\OlimpiadaTizimController;
 use App\Http\Controllers\Admin\Olimpiada\Suraktar\OlimpiadaSurakController;
 use App\Http\Controllers\Admin\Olimpiada\Option\OlimpiadaOptionController;
+use App\Http\Controllers\Admin\Olimpiada\OlimpiadaAppealsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,24 +36,34 @@ Route::group(['middleware' => ['adminAuth']], function () {
     Route::name('admin.')->group(function () {
         Route::get('/', function () {return Inertia::render('home');})->name('index');
         Route::resource('users', UserController::class)->except(['show'])->names('users');
+
+
         Route::resource('materials', MaterialController::class)->except(['show'])->names('materials');
         Route::resource('deleted-materials', DeletedMaterialController::class)->except(['show'])->names('deletedMaterials');
         Route::resource('materials/subjects', MaterialSubjectController::class)->except(['show'])->names('materialSubjects');
         Route::resource('materials/directions', MaterialDirectionController::class)->except(['show'])->names('materialDirections');
         Route::resource('materials/classes', MaterialClassController::class)->except(['show'])->names('materialClasses');
         Route::resource('materials/zhinak', MaterialZhinakController::class)->except(['show', 'create', 'store'])->names('materialZhinak');
+
+
         Route::resource('qmg/subject', QmgSubjectsController::class)->except(['show'])->names('qmgSubjects');
         Route::resource('qmg/bolim', QmgBolimController::class)->except(['show'])->names('qmgBolim');
+
+
         Route::resource('turnirs', TurnirController::class)->except(['show'])->names('turnir');
         Route::resource('turnirs/{turnir}/questions', TurnirQuestionsController::class)->except(['show'])->names('turnirQuestions');
         Route::resource('turnir-all-question', TurnirAllQuestionsController::class)->except(['show','create','store'])->names('turnirAllQuestions');
         Route::resource('turnir-users', TurnirUserController::class)->except(['show','create','store'])->names('turnirUser');
+
+
         Route::resource('olimpiada-bagyty', OlimpiadaBagytController::class)->except(['show'])->names('olimpiadaBagyty');
-
         Route::resource('olimpiada-bagyty/{bagyt}/options', OlimpiadaOptionController::class)->except(['show'])->names('olimpiadaOption');
-
         Route::resource('olimpiada-bagyty/{bagyt}/option/{option}/suraktar', OlimpiadaSurakController::class)->except(['show'])->names('olimpiadaSuraktar');
         Route::resource('olimpiada-tizim', OlimpiadaTizimController::class)->except(['show','create','store'])->names('olimpiadaTizim');
+
+
+        Route::resource('olimpiada-appeals', OlimpiadaAppealsController::class)->except(['show','create','store'])->names('olimpiadaAppeals');
+
 
         Route::get('logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
@@ -72,4 +83,20 @@ Route::middleware('guest')->group(function () {
 });
 
 
+//Clear route cache:
+ Route::get('/route-cache', function() {
+     $exitCode = Artisan::call('route:cache');
+     return 'Routes cache has been cleared';
+ });
 
+ //Clear config cache:
+ Route::get('/config-cache', function() {
+     $exitCode = Artisan::call('config:cache');
+     return 'Config cache has been cleared';
+ });
+
+ //Cache config cache:
+ Route::get('/cache-clear', function() {
+     $exitCode = Artisan::call('cache:clear');
+     return 'Application cache cleared';
+ });

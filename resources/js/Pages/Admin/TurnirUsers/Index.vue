@@ -78,7 +78,7 @@
                                         <td>
                                             <Link :href="
                                                     route(
-                                                        'admin.turnirUser.edit',
+                                                        'admin.users.edit',
                                                         user.user_id
                                                     )
                                                 ">

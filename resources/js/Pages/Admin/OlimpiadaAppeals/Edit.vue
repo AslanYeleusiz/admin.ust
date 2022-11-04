@@ -1,13 +1,13 @@
 <template>
 
     <head>
-        <title>Админ панель | Олимпиада | Сұрақ қосу</title>
+        <title>Админ панель | Олимпиада | Сұрақ өзгерту</title>
     </head>
     <AdminLayout>
         <template #breadcrumbs>
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Сұрақ қосу</h1>
+                    <h1 class="m-0">Сұрақ өзгерту</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -18,7 +18,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a :href="route('admin.olimpiadaSuraktar.index', [
+                            <a :href="route('admin.olimpiadaAppeals.index', [
                                bagyt_id,
                                option_id
                             ])">
@@ -26,7 +26,7 @@
                                 Олимпиада бағыт
                             </a>
                         </li>
-                        <li class="breadcrumb-item active">Сұрақ қосу</li>
+                        <li class="breadcrumb-item active">Сұрақ өзгерту</li>
                     </ol>
                 </div>
             </div>
@@ -34,6 +34,52 @@
         <div class="container-fluid">
             <div class="card card-primary">
                 <form method="post" @submit.prevent="submit">
+                    <div class="card-footer">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                Олимпиадаға қатысу жайлы ақпарат
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div v-if="surak.bagyty" class="post">
+                                                <div class="user-block">
+                                                    <span class="username" style="
+                                                    margin-left: 0 !important;
+                                                ">
+                                                        Олимпиада атауы: {{ surak.tury.o_tury }}
+                                                    </span>
+                                                </div>
+                                                <p class="mb-0">
+                                                    <b>Категория:</b>
+                                                    {{ surak.bagyty.katysushilar }}
+                                                </p>
+                                                <p class="mb-0">
+                                                    <b>Бағыт:</b>
+                                                    {{ surak.bagyty.bagyt }}
+                                                </p>
+                                                <p class="mb-0">
+                                                    <b>Олимпиада түрі:</b>
+                                                    {{ types[surak.bagyty.type-1] }}
+                                                </p>
+                                                <p class="mb-0 mt-3">
+                                                    <b>Қате түрі:</b>
+                                                    {{ appeal.variable }}
+                                                </p>
+                                                <p v-if="appeal.text" class="mb-0">
+                                                    <b>Комментарии:</b>
+                                                    {{ appeal.text }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <form @submit.prevent="submit">
                             <table class="table table-bordered">
@@ -101,17 +147,28 @@
                             </table>
                             <div class="form-group">
                                 <label for="">Түсінік</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    v-model="surak.tusinik"
-                                    name="name"
-                                    placeholder="Түсінік"
-                                />
+                                <input type="text" class="form-control" v-model="surak.tusinik" name="name" placeholder="Түсінік" />
                                 <validation-error :field="'tusinik'" />
                             </div>
-
                         </form>
+                        <div class="form-group mt-5">
+                            <div class="custom-control custom-switch">
+                                <input
+                                    type="checkbox"
+                                    v-model="appeal.is_checked"
+                                    class="custom-control-input"
+                                    id="customSwitch2"
+                                    true-value=1
+                                    false-value=0
+                                />
+                                <label
+                                    class="custom-control-label"
+                                    for="customSwitch2"
+                                    >Тексерілді ({{ appeal.is_checked == 1 ? 'Иә': 'Жоқ'}})</label
+                                >
+                            </div>
+                            <validation-error :field="'active'" />
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary mr-1">
@@ -127,14 +184,14 @@
     </AdminLayout>
 </template>
 <script>
-    import AdminLayout from "../../../../Layouts/AdminLayout.vue";
+    import AdminLayout from "../../../Layouts/AdminLayout.vue";
     import {
         Link,
         Head
     } from "@inertiajs/inertia-vue3";
-    import Pagination from "../../../../Components/Pagination.vue";
+    import Pagination from "../../../Components/Pagination.vue";
     import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-    import ValidationError from "../../../../Components/ValidationError.vue";
+    import ValidationError from "../../../Components/ValidationError.vue";
 
     export default {
         components: {
@@ -144,32 +201,10 @@
             ValidationError,
             Head
         },
-        props: ['surak'],
+        props: ['surak', 'appeal'],
         data() {
             return {
-//                surak: {
-//                    surak: null,
-//                    zhauaptar: [
-//                        {
-//                            variant: null,
-//                        },
-//                        {
-//                            variant: null,
-//                        },
-//                        {
-//                            variant: null,
-//                        },
-//                        {
-//                            variant: null,
-//                        },
-//                        {
-//                            variant: null,
-//                        },
-//                    ],
-//                    correct_answer_number: null,
-//                    archive: 0,
-//                    tusinik: null,
-//                },
+                types: ['Облыстық', 'Республикалық', 'Халықаралық'],
                 bagyt_id: route().params.bagyt,
                 option_id: route().params.option,
                 editor: ClassicEditor,
@@ -182,8 +217,11 @@
         methods: {
             submit() {
                 this.$inertia.put(
-                    route("admin.olimpiadaSuraktar.update", [this.bagyt_id, this.option_id, this.surak.id]),
-                    this.surak, {
+                    route("admin.olimpiadaAppeals.update", [this.appeal.id]),
+                    {
+                        surak: this.surak,
+                        appeal: this.appeal,
+                    }, {
                         onError: () => console.log("An error has occurred"),
                         onSuccess: () =>
                             console.log("The new contact has been saved"),

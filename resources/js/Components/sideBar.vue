@@ -4,7 +4,7 @@
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
             <img src="../../../public/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Әкімшілік панелі</span>
         </a>
 
         <!-- Sidebar -->
@@ -15,7 +15,9 @@
                     <img src="../../../public/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <Link :href="route('admin.users.edit',user.id)" class="d-block">
+                        {{ user.username }}
+                    </Link>
                 </div>
             </div>
 
@@ -87,6 +89,7 @@
         },
         data() {
             return {
+                user: this.$page.props.user,
                 menu_items: [{
                         name: "Қолданушылар",
                         font: "fa-users",
@@ -211,6 +214,7 @@
                             "admin.olimpiadaTizim",
                             "admin.olimpiadaSuraktar",
                             "admin.olimpiadaOption",
+                            "admin.olimpiadaAppeals",
                         ],
                         route_name: "",
                         childs_items: [
@@ -230,6 +234,13 @@
                                 route_name: "admin.olimpiadaTizim.index",
                                 menu_active: ["admin.olimpiadaTizim"],
                             },
+                            {
+                                name: "Аппеляция",
+                                font: "fa-comment-medical",
+                                route_name: "admin.olimpiadaAppeals.index",
+                                menu_active: ["admin.olimpiadaAppeals"],
+                            },
+
                         ],
                     },
                     {

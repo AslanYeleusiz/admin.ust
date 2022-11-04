@@ -21,7 +21,8 @@ class OlimpiadaTizimController extends Controller
         $katysushy_name = $request->katysushy_name;
         $code = $request->code;
         $obwcode = $request->obwcode;
-        $olimpiadaTizim = OlimpiadaTizim::when($user_id, fn($query)=>$query->where('user_id',$user_id))
+        $olimpiadaTizim = OlimpiadaTizim::has('user')
+            ->when($user_id, fn($query)=>$query->where('user_id',$user_id))
             ->when($katysushy_name, fn($query)=>$query->where('katysushy_name','like',"%$katysushy_name%"))
             ->when($code, fn($query)=>$query->where('code',$code))
             ->when($obwcode, fn($query)=>$query->where('obwcode',$obwcode))

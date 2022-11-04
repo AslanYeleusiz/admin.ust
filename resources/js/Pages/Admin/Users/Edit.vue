@@ -57,14 +57,12 @@
 
                         <div class="form-group">
                             <label for="">Телефон <span class="red">*</span></label>
-                            <input type="text" class="form-control" v-model="user.tel_num" name="phone" placeholder="Телефон" />
-
+                            <input type="text" class="form-control" v-model="user.tel_num" name="tel_num" placeholder="Телефон" autocomplete="off" />
                             <validation-error :field="'tel_num'" />
                         </div>
-
                         <div class="form-group">
                             <label for="">Құпиясөз <span class="red">*</span></label>
-                            <input :type="passwordField" class="form-control" v-model="user.real_password" name="password" placeholder="Телефон" />
+                            <input :type="passwordField" class="form-control" v-model="user.real_password" name="real_password" placeholder="Телефон" />
                             <div class="form-group mt-1">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="gridCheck" @change="openPassword()">
