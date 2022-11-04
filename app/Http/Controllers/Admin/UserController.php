@@ -31,7 +31,7 @@ class UserController extends Controller
             ->when($l_name, fn ($query) => $query->where('l_name', 'like', "%$l_name%"))
             ->when($id, fn ($query) => $query->where('id', $id))
             ->when($email, fn ($query) => $query->where('email', 'like', "%$email%"))
-            ->when($phone, fn ($query) => $query->where('phone', 'like', "%$phone%"))
+            ->when($phone, fn ($query) => $query->where('tel_num', 'like', "%$phone%"))
             ->when($sex, fn ($query) => $query->where('sex', 'like', "%$sex%"))
             ->latest()
             ->paginate($request->input('per_page', 20))
