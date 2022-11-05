@@ -26,7 +26,7 @@ class MaterialController extends Controller
         $class     = $request->class;
         $sell      = $request->sell;
 
-    $materials = Material::select(['id', 'title', 'description', 'zhanr', 'zhanr2', 'zhanr3', 'date', 'chec', 'sell', 'author', 'work', 'view', 'download', 'likes', 'zhinak'])
+    $materials = Material::select(['id', 'title', 'description', 'zhanr', 'zhanr2', 'zhanr3', 'raw', 'date', 'chec', 'sell', 'author', 'work', 'view', 'download', 'likes', 'zhinak'])
             ->when($title, function ($query, $title) {
                 return $query->where('title', 'like', "%$title%");
             })
@@ -68,7 +68,7 @@ class MaterialController extends Controller
 //                }
 //            )
 
-            ->orderBy('date_edit', 'desc')
+            ->latest('id')
             ->paginate(20)
             ->appends(request()->except('page'));
 
@@ -97,6 +97,14 @@ class MaterialController extends Controller
             $query->where('zhanr2', 'like', "%$material->zhanr2%");
             $query->where('zhanr3', 'like', "%$material->zhanr3%");
         })->take(5)->get();
+        foreach ($others as $material) {
+            $material->date = Date::dmYKZ($material->date);
+            $material->lat_title = Helper::translate($material->title);
+        }
+        foreach ($authors_materials as $material) {
+            $material->date = Date::dmYKZ($material->date);
+            $material->lat_title = Helper::translate($material->title);
+        }
         return response()->json([
             'material' => $material,
             'authors_materials' => $authors_materials,
