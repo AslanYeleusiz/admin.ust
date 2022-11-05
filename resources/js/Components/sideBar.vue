@@ -98,7 +98,7 @@
                     },
                     {
                         name: "Материалдар",
-                        font: "fa-comment-medical",
+                        font: "fa-list",
                         menu_active: [
                             "admin.materials",
                             "admin.deletedMaterials",
@@ -110,37 +110,37 @@
                         route_name: "",
                         childs_items: [{
                                 name: "Материалдар",
-                                font: "fa-comment-medical",
+                                font: "fa-file",
                                 route_name: "admin.materials.index",
                                 menu_active: ["admin.materials"],
                             },
                             {
                                 name: "Жойылған материалдар",
-                                font: "fa-comment-medical",
+                                font: "fa-file",
                                 route_name: "admin.deletedMaterials.index",
                                 menu_active: ["admin.deletedMaterials"],
                             },
                             {
                                 name: "Материалдар Сыныбы",
-                                font: "fa-comment-medical",
+                                font: "fa-file",
                                 route_name: "admin.materialClasses.index",
                                 menu_active: ["admin.materialClasses"],
                             },
                             {
                                 name: "Материалдар Бағыты",
-                                font: "fa-comment-medical",
+                                font: "fa-file",
                                 route_name: "admin.materialDirections.index",
                                 menu_active: ["admin.materialDirections"],
                             },
                             {
                                 name: "Материалдар Пәні",
-                                font: "fa-comment-medical",
+                                font: "fa-file",
                                 route_name: "admin.materialSubjects.index",
                                 menu_active: ["admin.materialSubjects"],
                             },
                             {
                                 name: "Жинақ",
-                                font: "fa-comment-medical",
+                                font: "fa-file",
                                 route_name: "admin.materialZhinak.index",
                                 menu_active: ["admin.materialZhinak"],
                             },
@@ -149,7 +149,7 @@
                     },
                     {
                         name: "ҚМЖ",
-                        font: "fa-comment-medical",
+                        font: "fa-book",
                         menu_active: [
                             "admin.qmgSubjects",
                             "admin.qmgBolim",
@@ -158,13 +158,13 @@
                         childs_items: [
                             {
                                 name: "ҚМЖ Пәндер",
-                                font: "fa-comment-medical",
+                                font: "fa-file",
                                 route_name: "admin.qmgSubjects.index",
                                 menu_active: ["admin.qmgSubjects"],
                             },
                             {
                                 name: "ҚМЖ Бөлімдер",
-                                font: "fa-comment-medical",
+                                font: "fa-file",
                                 route_name: "admin.qmgBolim.index",
                                 menu_active: ["admin.qmgBolim"],
                             },
@@ -173,7 +173,7 @@
                     },
                     {
                         name: "Турнир",
-                        font: "fa-comment-medical",
+                        font: "fa-trophy",
                         menu_active: [
                             "admin.turnir",
                             "admin.turnirAllQuestions",
@@ -184,7 +184,7 @@
                         childs_items: [
                             {
                                 name: "Турнирлер",
-                                font: "fa-comment-medical",
+                                font: "fa-list-alt",
                                 route_name: "admin.turnir.index",
                                 menu_active: [
                                     "admin.turnir",
@@ -193,13 +193,13 @@
                             },
                             {
                                 name: "Сұрақтар",
-                                font: "fa-comment-medical",
+                                font: "fa-question",
                                 route_name: "admin.turnirAllQuestions.index",
                                 menu_active: ["admin.turnirAllQuestions"],
                             },
                             {
                                 name: "Қатысушылар",
-                                font: "fa-comment-medical",
+                                font: "fa-users",
                                 route_name: "admin.turnirUser.index",
                                 menu_active: ["admin.turnirUser"],
                             },
@@ -208,7 +208,7 @@
                     },
                     {
                         name: "Олимпиада",
-                        font: "fa-comment-medical",
+                        font: "fas fa-star",
                         menu_active: [
                             "admin.olimpiadaBagyty",
                             "admin.olimpiadaTizim",
@@ -220,7 +220,7 @@
                         childs_items: [
                             {
                                 name: "Бағыт",
-                                font: "fa-comment-medical",
+                                font: "fa-list",
                                 route_name: "admin.olimpiadaBagyty.index",
                                 menu_active: [
                                     "admin.olimpiadaBagyty",
@@ -230,7 +230,7 @@
                             },
                             {
                                 name: "Қатысушылар",
-                                font: "fa-comment-medical",
+                                font: "fa-users",
                                 route_name: "admin.olimpiadaTizim.index",
                                 menu_active: ["admin.olimpiadaTizim"],
                             },
@@ -245,7 +245,7 @@
                     },
                     {
                         name: "Шығу",
-                        font: "fa-users",
+                        font: "fas fa-door-open",
                         route_name: "admin.logout",
                         menu_active: ["admin.logout"],
                     },

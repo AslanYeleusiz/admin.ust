@@ -23,7 +23,7 @@ class UserService
         $user->fio = $request->s_name.' '.$request->username.' '.$request->l_name;
         $user->email = $request->email;
         $user->real_password = $request->real_password;
-        $password = Hash::make($request->real_password);
+        $password = Hash('sha1', $request->real_password);
         $user->password = $password;
         $user->rep_pass = $password;
         $user->brithday = $request->brithday;
