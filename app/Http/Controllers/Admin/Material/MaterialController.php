@@ -29,9 +29,11 @@ class MaterialController extends Controller
         $subject = $request->subject;
         $direction = $request->direction;
         $class = $request->class;
+        $raw = $request->raw;
         $materials = Material::when($title, fn ($query) => $query->where('title', 'like', "%$title%"))
         ->when($description, fn ($query) => $query->where('description', 'like', "%$description%"))
         ->when($subject, fn ($query) => $query->where('zhanr', 'like', "%$subject%"))
+        ->when($raw, fn ($query) => $query->where('raw', 'like', "%$raw%"))
         ->when($direction, fn ($query) => $query->where('zhanr2', $direction))
         ->when($class, fn ($query) => $query->where('zhanr3', $class))
         ->orderByDesc('id')

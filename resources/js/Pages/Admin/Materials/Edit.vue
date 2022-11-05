@@ -112,7 +112,7 @@
                                     <iframe :src="'https://view.officeapps.live.com/op/embed.aspx?src=ust.kz/frontend/web/'+material.file_doc" width='100%' height='720px' frameborder='0'></iframe>
                                 </template>
                                 <template v-if="material.raw=='pdf'">
-                                    <iframe id="iframepdf" width='100%' height='720px' src="files/example.pdf" frameborder='0'></iframe>
+                                    <iframe id="iframepdf" width='100%' height='720px' :src="'https://ust.kz/frontend/web/'+material.file_doc" frameborder='0'></iframe>
                                 </template>
                                 <div class="form-group file-upload">
                                     <label for="">Файл</label>

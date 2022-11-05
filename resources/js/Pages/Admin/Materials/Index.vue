@@ -52,6 +52,7 @@
                                         <th>Пән</th>
                                         <th>Бағыты</th>
                                         <th>Сынып</th>
+                                        <th>Расширение</th>
                                         <th>Әрекет</th>
                                     </tr>
                                     <tr class="filters">
@@ -141,6 +142,14 @@
                                                 </option>
                                             </select>
                                         </td>
+                                        <td>
+                                            <input
+                                                v-model="filter.raw"
+                                                class="form-control"
+                                                placeholder="docx"
+                                                @keyup.enter="search"
+                                            />
+                                        </td>
                                         <td></td>
                                     </tr>
                                 </thead>
@@ -164,6 +173,7 @@
                                         <td>{{ material.zhanr }}</td>
                                         <td>{{ material.zhanr2 }}</td>
                                         <td>{{ material.zhanr3 }}</td>
+                                        <td>{{ material.raw }}</td>
                                         <td>
                                             <div class="btn-group btn-group-sm">
 <!--
