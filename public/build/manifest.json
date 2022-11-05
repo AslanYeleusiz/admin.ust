@@ -1,0 +1,705 @@
+{
+  "public/admin/dist/img/AdminLTELogo.png": {
+    "file": "assets/AdminLTELogo.b921c343.png",
+    "src": "public/admin/dist/img/AdminLTELogo.png"
+  },
+  "public/admin/dist/img/user2-160x160.jpg": {
+    "file": "assets/user2-160x160.680f6c82.jpg",
+    "src": "public/admin/dist/img/user2-160x160.jpg"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app.7c3c19f8.js",
+    "src": "resources/sass/app.scss",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app.013e25ce.js",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/home.vue",
+      "resources/js/Pages/Admin/DeletedMaterials/Edit.vue",
+      "resources/js/Pages/Admin/DeletedMaterials/Index.vue",
+      "resources/js/Pages/Admin/MaterialClasses/Create.vue",
+      "resources/js/Pages/Admin/MaterialClasses/Edit.vue",
+      "resources/js/Pages/Admin/MaterialClasses/Index.vue",
+      "resources/js/Pages/Admin/MaterialDirections/Create.vue",
+      "resources/js/Pages/Admin/MaterialDirections/Edit.vue",
+      "resources/js/Pages/Admin/MaterialDirections/Index.vue",
+      "resources/js/Pages/Admin/MaterialSubjects/Create.vue",
+      "resources/js/Pages/Admin/MaterialSubjects/Edit.vue",
+      "resources/js/Pages/Admin/MaterialSubjects/Index.vue",
+      "resources/js/Pages/Admin/MaterialZhinak/Comments.vue",
+      "resources/js/Pages/Admin/MaterialZhinak/Edit.vue",
+      "resources/js/Pages/Admin/MaterialZhinak/Index.vue",
+      "resources/js/Pages/Admin/Materials/Comments.vue",
+      "resources/js/Pages/Admin/Materials/Edit.vue",
+      "resources/js/Pages/Admin/Materials/Index.vue",
+      "resources/js/Pages/Admin/OlimpBagyty/Create.vue",
+      "resources/js/Pages/Admin/OlimpBagyty/Edit.vue",
+      "resources/js/Pages/Admin/OlimpBagyty/Index.vue",
+      "resources/js/Pages/Admin/OlimpiadaAppeals/Edit.vue",
+      "resources/js/Pages/Admin/OlimpiadaAppeals/Index.vue",
+      "resources/js/Pages/Admin/OlimpiadaTizim/Edit.vue",
+      "resources/js/Pages/Admin/OlimpiadaTizim/Index.vue",
+      "resources/js/Pages/Admin/QmgBolim/Create.vue",
+      "resources/js/Pages/Admin/QmgBolim/Edit.vue",
+      "resources/js/Pages/Admin/QmgBolim/Index.vue",
+      "resources/js/Pages/Admin/QmgSubjects/Create.vue",
+      "resources/js/Pages/Admin/QmgSubjects/Edit.vue",
+      "resources/js/Pages/Admin/QmgSubjects/Index.vue",
+      "resources/js/Pages/Admin/Turnir/Create.vue",
+      "resources/js/Pages/Admin/Turnir/Edit.vue",
+      "resources/js/Pages/Admin/Turnir/Index.vue",
+      "resources/js/Pages/Admin/TurnirAllQuestions/Edit.vue",
+      "resources/js/Pages/Admin/TurnirAllQuestions/Index.vue",
+      "resources/js/Pages/Admin/TurnirQuestions/Create.vue",
+      "resources/js/Pages/Admin/TurnirQuestions/Edit.vue",
+      "resources/js/Pages/Admin/TurnirQuestions/Index.vue",
+      "resources/js/Pages/Admin/TurnirUsers/Edit.vue",
+      "resources/js/Pages/Admin/TurnirUsers/Index.vue",
+      "resources/js/Pages/Admin/Users/Create.vue",
+      "resources/js/Pages/Admin/Users/Edit.vue",
+      "resources/js/Pages/Admin/Users/Index.vue",
+      "resources/js/Pages/Admin/OlimpBagyty/Options/Create.vue",
+      "resources/js/Pages/Admin/OlimpBagyty/Options/Edit.vue",
+      "resources/js/Pages/Admin/OlimpBagyty/Options/Index.vue",
+      "resources/js/Pages/Admin/OlimpBagyty/Suraktar/Create.vue",
+      "resources/js/Pages/Admin/OlimpBagyty/Suraktar/Edit.vue",
+      "resources/js/Pages/Admin/OlimpBagyty/Suraktar/Index.vue"
+    ]
+  },
+  "resources/js/Pages/home.vue": {
+    "file": "assets/home.be53f8ee.js",
+    "src": "resources/js/Pages/home.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js"
+    ]
+  },
+  "_AdminLayout.5fa73673.js": {
+    "file": "assets/AdminLayout.5fa73673.js",
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/AdminLayout.e4829579.css"
+    ],
+    "assets": [
+      "assets/AdminLTELogo.b921c343.png",
+      "assets/user2-160x160.680f6c82.jpg"
+    ]
+  },
+  "resources/js/Pages/Admin/DeletedMaterials/Edit.vue": {
+    "file": "assets/Edit.00ac5c70.js",
+    "src": "resources/js/Pages/Admin/DeletedMaterials/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "_Pagination.0b1e04ca.js": {
+    "file": "assets/Pagination.0b1e04ca.js",
+    "imports": [
+      "resources/js/app.js",
+      "_AdminLayout.5fa73673.js"
+    ]
+  },
+  "_ValidationError.73bec915.js": {
+    "file": "assets/ValidationError.73bec915.js",
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/ValidationError.d2b8f0ed.css"
+    ]
+  },
+  "resources/js/Pages/Admin/DeletedMaterials/Index.vue": {
+    "file": "assets/Index.379d272f.js",
+    "src": "resources/js/Pages/Admin/DeletedMaterials/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialClasses/Create.vue": {
+    "file": "assets/Create.b13068e0.js",
+    "src": "resources/js/Pages/Admin/MaterialClasses/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialClasses/Edit.vue": {
+    "file": "assets/Edit.d0de1d01.js",
+    "src": "resources/js/Pages/Admin/MaterialClasses/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialClasses/Index.vue": {
+    "file": "assets/Index.a8e3e4b1.js",
+    "src": "resources/js/Pages/Admin/MaterialClasses/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialDirections/Create.vue": {
+    "file": "assets/Create.96599b5d.js",
+    "src": "resources/js/Pages/Admin/MaterialDirections/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialDirections/Edit.vue": {
+    "file": "assets/Edit.c6f48f32.js",
+    "src": "resources/js/Pages/Admin/MaterialDirections/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialDirections/Index.vue": {
+    "file": "assets/Index.658ec711.js",
+    "src": "resources/js/Pages/Admin/MaterialDirections/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialSubjects/Create.vue": {
+    "file": "assets/Create.2fb1c427.js",
+    "src": "resources/js/Pages/Admin/MaterialSubjects/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialSubjects/Edit.vue": {
+    "file": "assets/Edit.d69927cf.js",
+    "src": "resources/js/Pages/Admin/MaterialSubjects/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialSubjects/Index.vue": {
+    "file": "assets/Index.d8829164.js",
+    "src": "resources/js/Pages/Admin/MaterialSubjects/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialZhinak/Comments.vue": {
+    "file": "assets/Comments.9f253fd7.js",
+    "src": "resources/js/Pages/Admin/MaterialZhinak/Comments.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialZhinak/Edit.vue": {
+    "file": "assets/Edit.e98a53b8.js",
+    "src": "resources/js/Pages/Admin/MaterialZhinak/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/MaterialZhinak/Index.vue": {
+    "file": "assets/Index.f16f1dba.js",
+    "src": "resources/js/Pages/Admin/MaterialZhinak/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ],
+    "css": [
+      "assets/Index.2b0f0c62.css"
+    ]
+  },
+  "resources/js/Pages/Admin/Materials/Comments.vue": {
+    "file": "assets/Comments.c6a6f0f7.js",
+    "src": "resources/js/Pages/Admin/Materials/Comments.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Materials/Edit.vue": {
+    "file": "assets/Edit.c192ac48.js",
+    "src": "resources/js/Pages/Admin/Materials/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ],
+    "css": [
+      "assets/Edit.2b0f0c62.css"
+    ]
+  },
+  "resources/js/Pages/Admin/Materials/Index.vue": {
+    "file": "assets/Index.00c69f2f.js",
+    "src": "resources/js/Pages/Admin/Materials/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ],
+    "css": [
+      "assets/Index.2b0f0c62.css"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Create.vue": {
+    "file": "assets/Create.cab4f69e.js",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ],
+    "css": [
+      "assets/Create.3ea78c47.css"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Edit.vue": {
+    "file": "assets/Edit.616a0518.js",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Index.vue": {
+    "file": "assets/Index.eec65628.js",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpiadaAppeals/Edit.vue": {
+    "file": "assets/Edit.046b79af.js",
+    "src": "resources/js/Pages/Admin/OlimpiadaAppeals/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ckeditor.a80a8572.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "_ckeditor.a80a8572.js": {
+    "file": "assets/ckeditor.a80a8572.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpiadaAppeals/Index.vue": {
+    "file": "assets/Index.d24ea1dd.js",
+    "src": "resources/js/Pages/Admin/OlimpiadaAppeals/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpiadaTizim/Edit.vue": {
+    "file": "assets/Edit.73e98bb5.js",
+    "src": "resources/js/Pages/Admin/OlimpiadaTizim/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpiadaTizim/Index.vue": {
+    "file": "assets/Index.6cca7869.js",
+    "src": "resources/js/Pages/Admin/OlimpiadaTizim/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/QmgBolim/Create.vue": {
+    "file": "assets/Create.890061ee.js",
+    "src": "resources/js/Pages/Admin/QmgBolim/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ],
+    "css": [
+      "assets/Create.1ee30ea3.css"
+    ]
+  },
+  "resources/js/Pages/Admin/QmgBolim/Edit.vue": {
+    "file": "assets/Edit.97adf65a.js",
+    "src": "resources/js/Pages/Admin/QmgBolim/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/QmgBolim/Index.vue": {
+    "file": "assets/Index.125cebad.js",
+    "src": "resources/js/Pages/Admin/QmgBolim/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ],
+    "css": [
+      "assets/Index.2b0f0c62.css"
+    ]
+  },
+  "resources/js/Pages/Admin/QmgSubjects/Create.vue": {
+    "file": "assets/Create.34a9d981.js",
+    "src": "resources/js/Pages/Admin/QmgSubjects/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/QmgSubjects/Edit.vue": {
+    "file": "assets/Edit.b41c6493.js",
+    "src": "resources/js/Pages/Admin/QmgSubjects/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/QmgSubjects/Index.vue": {
+    "file": "assets/Index.860578e7.js",
+    "src": "resources/js/Pages/Admin/QmgSubjects/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Turnir/Create.vue": {
+    "file": "assets/Create.75bc77af.js",
+    "src": "resources/js/Pages/Admin/Turnir/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Turnir/Edit.vue": {
+    "file": "assets/Edit.35fe0ed6.js",
+    "src": "resources/js/Pages/Admin/Turnir/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Turnir/Index.vue": {
+    "file": "assets/Index.2bdd6bd1.js",
+    "src": "resources/js/Pages/Admin/Turnir/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/TurnirAllQuestions/Edit.vue": {
+    "file": "assets/Edit.81cf93af.js",
+    "src": "resources/js/Pages/Admin/TurnirAllQuestions/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js",
+      "_ckeditor.a80a8572.js"
+    ],
+    "css": [
+      "assets/Edit.c02d5365.css"
+    ]
+  },
+  "resources/js/Pages/Admin/TurnirAllQuestions/Index.vue": {
+    "file": "assets/Index.6c7c3ad8.js",
+    "src": "resources/js/Pages/Admin/TurnirAllQuestions/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/TurnirQuestions/Create.vue": {
+    "file": "assets/Create.6346341c.js",
+    "src": "resources/js/Pages/Admin/TurnirQuestions/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js",
+      "_ckeditor.a80a8572.js"
+    ],
+    "css": [
+      "assets/Create.db1848f9.css"
+    ]
+  },
+  "resources/js/Pages/Admin/TurnirQuestions/Edit.vue": {
+    "file": "assets/Edit.7c6d1397.js",
+    "src": "resources/js/Pages/Admin/TurnirQuestions/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js",
+      "_ckeditor.a80a8572.js"
+    ],
+    "css": [
+      "assets/Edit.25cd7520.css"
+    ]
+  },
+  "resources/js/Pages/Admin/TurnirQuestions/Index.vue": {
+    "file": "assets/Index.6835e65c.js",
+    "src": "resources/js/Pages/Admin/TurnirQuestions/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/TurnirUsers/Edit.vue": {
+    "file": "assets/Edit.a82c7353.js",
+    "src": "resources/js/Pages/Admin/TurnirUsers/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/TurnirUsers/Index.vue": {
+    "file": "assets/Index.53140aba.js",
+    "src": "resources/js/Pages/Admin/TurnirUsers/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Users/Create.vue": {
+    "file": "assets/Create.153372a2.js",
+    "src": "resources/js/Pages/Admin/Users/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Users/Edit.vue": {
+    "file": "assets/Edit.02e4189f.js",
+    "src": "resources/js/Pages/Admin/Users/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Users/Index.vue": {
+    "file": "assets/Index.b42ce712.js",
+    "src": "resources/js/Pages/Admin/Users/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Options/Create.vue": {
+    "file": "assets/Create.57af4d4e.js",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Options/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Options/Edit.vue": {
+    "file": "assets/Edit.c231de22.js",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Options/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Options/Index.vue": {
+    "file": "assets/Index.2660a288.js",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Options/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Suraktar/Create.vue": {
+    "file": "assets/Create.11720f70.js",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Suraktar/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ckeditor.a80a8572.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Suraktar/Edit.vue": {
+    "file": "assets/Edit.724676de.js",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Suraktar/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js",
+      "_ckeditor.a80a8572.js",
+      "_ValidationError.73bec915.js"
+    ]
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Suraktar/Index.vue": {
+    "file": "assets/Index.83309944.js",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Suraktar/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_AdminLayout.5fa73673.js",
+      "resources/js/app.js",
+      "_Pagination.0b1e04ca.js"
+    ]
+  },
+  "AdminLayout.css": {
+    "file": "assets/AdminLayout.e4829579.css",
+    "src": "AdminLayout.css"
+  },
+  "resources/js/Pages/Admin/OlimpBagyty/Create.css": {
+    "file": "assets/Create.3ea78c47.css",
+    "src": "resources/js/Pages/Admin/OlimpBagyty/Create.css"
+  },
+  "resources/js/Pages/Admin/Materials/Edit.css": {
+    "file": "assets/Edit.2b0f0c62.css",
+    "src": "resources/js/Pages/Admin/Materials/Edit.css"
+  },
+  "resources/js/Pages/Admin/Materials/Index.css": {
+    "file": "assets/Index.2b0f0c62.css",
+    "src": "resources/js/Pages/Admin/Materials/Index.css"
+  },
+  "resources/js/Pages/Admin/TurnirQuestions/Create.css": {
+    "file": "assets/Create.db1848f9.css",
+    "src": "resources/js/Pages/Admin/TurnirQuestions/Create.css"
+  },
+  "ValidationError.css": {
+    "file": "assets/ValidationError.d2b8f0ed.css",
+    "src": "ValidationError.css"
+  },
+  "resources/js/Pages/Admin/QmgBolim/Create.css": {
+    "file": "assets/Create.1ee30ea3.css",
+    "src": "resources/js/Pages/Admin/QmgBolim/Create.css"
+  },
+  "resources/js/Pages/Admin/TurnirAllQuestions/Edit.css": {
+    "file": "assets/Edit.c02d5365.css",
+    "src": "resources/js/Pages/Admin/TurnirAllQuestions/Edit.css"
+  },
+  "resources/js/Pages/Admin/TurnirQuestions/Edit.css": {
+    "file": "assets/Edit.25cd7520.css",
+    "src": "resources/js/Pages/Admin/TurnirQuestions/Edit.css"
+  }
+}
