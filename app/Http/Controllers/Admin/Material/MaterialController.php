@@ -24,6 +24,7 @@ class MaterialController extends Controller
 
     public function index(Request $request)
     {
+        \Artisan::call('route:cache');
         $title = $request->title;
         $description = $request->description;
         $subject = $request->subject;
