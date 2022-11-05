@@ -26,48 +26,19 @@ class MaterialController extends Controller
         $class     = $request->class;
         $sell      = $request->sell;
 
-    $materials = Material::select(['id', 'title', 'description', 'zhanr', 'zhanr2', 'zhanr3', 'raw', 'date', 'chec', 'sell', 'author', 'work', 'view', 'download', 'likes', 'zhinak'])
-            ->when($title, function ($query, $title) {
-                return $query->where('title', 'like', "%$title%");
-            })
-            ->where(
-                function ($query) use ( $subject, $direction, $class, $sell) {
-                    if ($subject && $subject != 'barlyk_pander') {
-                        $subject = MaterialSubject::where('lat_name','=', $subject)->first();
-                        if ($subject)
-                            $query->where('zhanr', 'like', "%$subject->name%");
-                    }
-                    if ($direction && $direction != 'barlik_materialdar') {
-                        $direction = MaterialDirection::where('lat_name', $direction)->first();
-                        if ($direction)
-                            $query->where('zhanr2', 'like', "%$direction->name%");
-                    }
-                    if ($class && $class != 'barlik_siniptar') {
-                        $class = MaterialClass::where('lat_name', $class)->first();
-                        if ($class)
-                            $query->where('zhanr3', 'like', "%$class->name%");
-                    }
-                    if($sell) {
-                        switch($sell){
-                            case 1: {$query->where('sell',0); break;}
-                            case 2: {$query->where('sell','>',0); break;}
-                            case 3: {$query->where('zhinak',1); break;}
-                        }
-                    }
+        $materials = Material::select(['id', 'title', 'description', 'zhanr', 'zhanr2', 'zhanr3', 'raw', 'date', 'chec', 'sell', 'author', 'work', 'view', 'download', 'likes', 'zhinak'])
+            ->when($title, fn($query) => $query->where('title', 'like', "%$title%"))
+            ->when($subject && $subject != 'Барлық пәндер', fn($query) => $query->where('zhanr', 'like', "%$subject%"))
+            ->when($direction && $direction != 'Барлық материалдар', fn($query) => $query->where('zhanr2', 'like', "%$direction%"))
+            ->when($class && $class != 'Барлық сыныптар', fn($query) => $query->where('zhanr3', 'like', "%$class%"))
+            ->when($sell, function($query) use ($sell){
+                switch($sell){
+                    case 1: {$query->where('sell',0); break;}
+                    case 2: {$query->where('sell','>',0); break;}
+                    case 3: {$query->where('zhinak',1); break;}
                 }
-            )
+            })
             ->notDeletes()
-//
-//            ->where(
-//                function ($query) use ( $subject ) {
-//                    if ($subject && $subject != 'barlyk_pander') {
-//                        $subject = MaterialSubject::where('lat_name', $subject)->first();
-//                        if ($subject)
-//                            $query->where('zhanr', 'like', "%$subject->name%");
-//                    }
-//                }
-//            )
-
             ->latest('id')
             ->paginate(20)
             ->appends(request()->except('page'));
