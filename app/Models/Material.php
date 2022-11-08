@@ -29,6 +29,11 @@ class Material extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function isPurchased()
+    {
+        return $this->hasOne(MaterialSolds::class, 'doc_id');
+    }
+
     public function certificateThankLetter(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(MaterialCertificateThankLetter::class, 'material_id', 'id');

@@ -9,8 +9,7 @@ class BonusService
 {
     public function getTypeAndDate($bonus) {
         foreach ($bonus as $b) {
-            $b->perevod_text = $this->getTypeText($b->description_id);
-            $b->date = $b->created_at->format('d.m.Y / H:i');
+            $b->date = $b->date->format('d.m.Y / H:i');
         }
         return $bonus;
     }

@@ -12,6 +12,7 @@ use App\Models\Material;
 use App\Models\MaterialSubject;
 use App\Models\MaterialDirection;
 use App\Models\MaterialClass;
+use App\Models\MaterialSolds;
 use App\Models\User;
 use App\Helpers\Helper;
 use App\Helpers\Date;
@@ -76,10 +77,12 @@ class MaterialController extends Controller
     }
 
     public function show($slug,$id){
-        $material = Material::with('user')->findOrFail($id);
+        $material = Material::with(['user', 'isPurchased'])->findOrFail($id);
         $material->increment('view');
         $material->lat_title = Helper::translate($material->title);
         $material->date = Date::dmYKZ($material->date);
+        if(!empty($material->isPurchased)) $isPurchased = 1;
+        else $isPurchased = 0;
         $authors_materials = Material::where('user_id', $material->user_id)->take(3)->get();
         $others = Material::where(function($query) use ($material) {
             $query->where('zhanr', 'like', "%$material->zhanr%");
@@ -97,7 +100,8 @@ class MaterialController extends Controller
         return response()->json([
             'material' => $material,
             'authors_materials' => $authors_materials,
-            'others' => $others
+            'others' => $others,
+            'isPurchased' => $isPurchased,
         ]);
     }
 
@@ -204,6 +208,29 @@ class MaterialController extends Controller
         ]);
     }
 
+    public function purchase(Request $request, $id) {
+        $user = Auth::guard('api')->user();
+        $material = Material::findOrFail($id);
+        if($user->balance >= $request->sell){
+            $balance = $user->balance - $request->sell;
+            $user->update([
+                'balance' => $balance,
+            ]);
+            MaterialSolds::create([
+                'user_id' => $user->id,
+                'doc_id' => $material->id,
+                'skidka' => 30,
+                'sell' => $request->sell,
+            ]);
+            return response()->json([
+                'purchase' => true,
+            ]);
+        }
+        return response()->json([
+            'purchase' => false,
+        ]);
+    }
+
     protected function validator(array $data)
     {
         $messages = array(
@@ -219,6 +246,8 @@ class MaterialController extends Controller
             'work' => ['required', 'string'],
         ], $messages);
     }
+
+
 
 
 }

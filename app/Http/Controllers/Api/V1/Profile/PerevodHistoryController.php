@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\perevodHistory;
+use App\Models\Payment;
 use App\Services\BonusService;
+use Carbon\Carbon;
 
 class PerevodHistoryController extends Controller
 {
@@ -25,7 +26,8 @@ class PerevodHistoryController extends Controller
 
         $user = Auth::guard('api')->user();
 
-        $history = perevodHistory::where('user_id', $user->id)
+        $history = Payment::where('user_id', $user->id)
+            ->whereNot('sum', 0)
             ->when($perevod_type, function($query) use ($perevod_type){
                 if($perevod_type == 'balance') return $query->where('perevod_type', 1);
                 if($perevod_type == 'bonus') return $query->where('perevod_type', 2);
@@ -37,13 +39,15 @@ class PerevodHistoryController extends Controller
                     return $query->paginate(20);
                 }
             });
-        $history = $this->bonusService->getTypeAndDate($history);
+        foreach ($history as $b) {
+            $b->date = date('d.m.Y / H:i', $b->date);
+        }
         return response()->json([
             'history' => $history
         ]);
     }
 
-    public function store(perevodHistory $bonus) {
+    public function store(Payment $bonus) {
         $user = Auth::guard('api')->user();
         if($user->bonus != 0){
             $bonus->create([
