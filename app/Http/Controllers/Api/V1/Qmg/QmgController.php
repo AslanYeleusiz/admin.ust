@@ -27,13 +27,13 @@ class QmgController extends Controller
 
     public function index(Request $request){
         $category = $request->category;
+        $title = $request->title;
 
         $bolimder = QmgBolim::IsEnabled()
-            ->where(function($query) use ($category) {
-                if(!empty($category)){
-                    return $query->where('sub_id', $category);
-                }
+            ->when(!empty($category), function($query) use ($category) {
+                $query->where('sub_id', $category);
             })
+            ->when($title, fn($query) => $query->where('title', 'like', "%$title%"))
             ->paginate(20)
             ->appends(request()->except('page'));
         $subjects = QmgSubjects::get();

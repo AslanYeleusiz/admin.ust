@@ -84,18 +84,17 @@ class MaterialController extends Controller
         if(!empty($material->isPurchased)) $isPurchased = 1;
         else $isPurchased = 0;
         $authors_materials = Material::where('user_id', $material->user_id)->take(3)->get();
-        $others = Material::where(function($query) use ($material) {
-            $query->where('zhanr', 'like', "%$material->zhanr%");
-            $query->where('zhanr2', 'like', "%$material->zhanr2%");
-            $query->where('zhanr3', 'like', "%$material->zhanr3%");
-        })->take(5)->get();
-        foreach ($others as $material) {
-            $material->date = Date::dmYKZ($material->date);
-            $material->lat_title = Helper::translate($material->title);
+        $others = Material::when($material->zhanr, fn($query) => $query->where('zhanr', 'like', "%$material->zhanr%"))
+            ->when($material->zhanr2, fn($query) => $query->where('zhanr2', 'like', "%$material->zhanr2%"))
+            ->when($material->zhanr3, fn($query) => $query->where('zhanr3', 'like', "%$material->zhanr3%"))
+        ->take(5)->get();
+        foreach ($others as $other) {
+            $other->date = Date::dmYKZ($other->date);
+            $other->lat_title = Helper::translate($other->title);
         }
-        foreach ($authors_materials as $material) {
-            $material->date = Date::dmYKZ($material->date);
-            $material->lat_title = Helper::translate($material->title);
+        foreach ($authors_materials as $author_material) {
+            $author_material->date = Date::dmYKZ($author_material->date);
+            $author_material->lat_title = Helper::translate($author_material->title);
         }
         return response()->json([
             'material' => $material,
