@@ -6,10 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Http\Requests\Auth\CheckPhoneRequest;
+use Illuminate\Validation\ValidationException;
+use App\Services\V1\SmsService;
+use App\Helpers\Helper;
 
 
 class AuthController extends Controller
 {
+    public $smsService;
+    public function __construct(SmsService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
     protected $guard = 'api';
     /**
      * Create a new AuthController instance.
@@ -18,7 +27,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'refresh']]);
+        $this->middleware('auth:api', ['except' => ['login', 'refresh', 'checkPhone']]);
     }
 
     /**
@@ -29,11 +38,13 @@ class AuthController extends Controller
     public function login()
     {
 
-        $credentials = request(['email','password']);
-        $user = User::where('email', $credentials['email'])->first();
+        $credentials = request(['phone','password']);
+        $user = User::where('tel_num', $credentials['phone'])->first();
 
         if(empty($user) || Hash('sha1', $credentials['password']) !== $user->password){
-            return response()->json(['error' => 'Unauthorized'], 401);
+            throw ValidationException::withMessages([
+                'password' => [__('auth.Phone or password is incorrect')]
+            ]);
         }
         $token = auth()->login($user);
         return $this->responseWithToken($token);
@@ -43,6 +54,44 @@ class AuthController extends Controller
 //        }
 //
 //        return $this->respondWithToken($token);
+    }
+
+    public function checkPhone(CheckPhoneRequest $request) {
+        $user = User::where('tel_num', $request->phone)->first();
+        if(!empty($user)){
+            return response()->json([
+                'loginOpen' => 2,
+            ]);
+        }
+
+        $password = $this->smsService->generateCode();
+        $msg = __('auth.new_password') . $password;
+        $phone = Helper::clearPhoneMask($request->phone);
+        $this->smsService->send($msg, $phone);
+
+        $email = $this->smsService->generateCode();
+
+        $new_user = User::create([
+            'tel_num' => $request->phone,
+            'user_status_id' => 1,
+            'email' => $email.'@mail.ru',
+            'password' => Hash('sha1', $password),
+            'real_password' => $password,
+            'rep_pass' => Hash('sha1', $password),
+            'status' => 10,
+            'created_at' => time(),
+            'updated_at' => time(),
+        ]);
+
+        $new_user->s_name = 'Қолданушы';
+        $new_user->username = '№'.$new_user->id;
+        $new_user->email = 'user'.$new_user->id.'@gmail.com';
+        $new_user->save();
+        SmsVerification::create([
+            'phone' => $phone,
+            'status' => SmsVerification::STATUS_PENDING,
+        ]);
+
     }
 
     /**

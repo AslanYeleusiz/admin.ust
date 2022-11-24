@@ -3,28 +3,33 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use App\Services\V1\SmsService;
+use App\Helpers\Helper;
+use App\Models\User;
+use App\Models\SmsVerification;
 
 class ResetPasswordController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset requests
-    | and uses a simple trait to include this behavior. You're free to
-    | explore this trait and override any methods you wish to tweak.
-    |
-    */
 
-    use ResetsPasswords;
+    public $smsService;
+    public function __construct(SmsService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
 
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    public function sendSmsResetPassword(Request $request) {
+        $phone = Helper::clearPhoneMask($request->phone);
+        $this->smsService->checkLimitSms($phone);
+//        $code = '9999';
+        $code = $this->smsService->generateCode();
+        $msg = __('auth.new_password') . $code;
+        $this->smsService->send($msg, $phone);
+        SmsVerification::create([
+            'phone' => $phone,
+            'status' => SmsVerification::STATUS_PENDING,
+        ]);
+        return response();
+    }
+
 }

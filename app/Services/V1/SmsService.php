@@ -7,6 +7,7 @@ use App\Exceptions\ErrorException;
 use App\Models\SmsVerification;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Validation\ValidationException;
 
 class SmsService
 {
@@ -15,7 +16,7 @@ class SmsService
         $login = config('services.smsc.login');
         $password = config('services.smsc.password');
         try {
-            $link = "https://smsc.kz/sys/send.php?login=$login&psw=$password&phones=" . $phone . '&mes=' . $msg . '&sender=ust.kz'; #$subdomain уже объявляли выше
+            $link = "https://smsc.kz/sys/send.php?login=$login&psw=$password&phones=+7" . $phone . '&mes=' . $msg . '&sender=ust.kz'; #$subdomain уже объявляли выше
             $curl = curl_init(); #Сохраняем дескриптор сеанса cURL
             #Устанавливаем необходимые опции для сеанса cURL
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -26,7 +27,9 @@ class SmsService
             $res = curl_close($curl);
 
             if (str_contains($resText, 'ERROR')) {
-                throw new ErrorException($resText);
+                throw ValidationException::withMessages([
+                    'sendSms' => [__('errors.internal_server_error')]
+                ]);
             }
             return $resText;
             // Log::channel('sms')->error('$res sms ' . json_encode($res));
@@ -50,9 +53,9 @@ class SmsService
         return $smsVerification;
     }
 
-    public function generateCode()
+    public function generateCode($length = 10)
     {
-        return rand(1000, 9999);
+        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
     }
 
     public function checkLimitSms($phone)

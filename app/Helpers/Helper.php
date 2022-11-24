@@ -240,4 +240,24 @@ class Helper
         }
         return $bonus;
     }
+    public static function clearPhoneMask($s)
+    {
+        $s = (string)$s; // преобразуем в строковое значение
+        $s = strip_tags($s); // убираем HTML-теги
+        $s = str_replace(array("\n", "\r"), " ", $s); // убираем перевод каретки
+        $s = preg_replace("/\s+/", ' ', $s); // удаляем повторяющие пробелы
+        $s = trim($s); // убираем пробелы в начале и конце строки
+        $s = function_exists('mb_strtolower') ? mb_strtolower($s) : strtolower($s); // переводим строку в нижний регистр (иногда надо задать локаль)
+        $s = strtr($s, array(
+            ' ' => '',
+            '(' => '',
+            ')' => '',
+            '-' => '',
+        ));
+        $s = preg_replace("/[^0-9a-z-_ ]/i", "", $s); // очищаем строку от недопустимых символов
+        $s = str_replace(" ", "_", $s); // заменяем пробелы знаком минус
+        $s = str_replace("-", "_", $s); // заменяем пробелы знаком минус
+        $s = substr($s, 1);
+        return $s; // возвращаем результат
+    }
 }

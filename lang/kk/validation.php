@@ -135,6 +135,9 @@ return [
         'role_id' => [
             'required' => ' :attribute тандалу керек.'
         ],
+        'phone' => [
+            'min' => ':attribute қате енгізілді'
+        ],
     ],
 
     /*
