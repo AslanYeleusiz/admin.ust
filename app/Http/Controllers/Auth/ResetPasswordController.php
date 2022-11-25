@@ -22,7 +22,7 @@ class ResetPasswordController extends Controller
     public function sendSmsResetPassword(Request $request) {
         $phone = Helper::clearPhoneMask($request->phone);
         $this->smsService->checkLimitSms($phone);
-//        $code = '9999';
+//        $code = 'password';
         $code = $this->smsService->generateCode();
         $msg = __('auth.new_password') . $code;
         $this->smsService->send($msg, $phone);

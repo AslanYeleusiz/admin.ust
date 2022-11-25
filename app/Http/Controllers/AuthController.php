@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\SmsVerification;
 use App\Http\Requests\Auth\CheckPhoneRequest;
 use Illuminate\Validation\ValidationException;
 use App\Services\V1\SmsService;
@@ -56,21 +57,26 @@ class AuthController extends Controller
                 'loginOpen' => 2,
             ]);
         }
-
-        $password = $this->smsService->generateCode();
-        $msg = __('auth.new_password') . $password;
         $phone = Helper::clearPhoneMask($request->phone);
+//        $code = 'password';
+        $code = $this->smsService->generateCode();
+        $msg = __('auth.new_password') . $code;
         $this->smsService->send($msg, $phone);
 
         $email = $this->smsService->generateCode();
+
+        SmsVerification::create([
+            'phone' => $phone,
+            'status' => SmsVerification::STATUS_PENDING,
+        ]);
 
         $new_user = User::create([
             'tel_num' => $request->phone,
             'user_status_id' => 1,
             'email' => $email.'@mail.ru',
-            'password' => Hash('sha1', $password),
-            'real_password' => $password,
-            'rep_pass' => Hash('sha1', $password),
+            'password' => Hash('sha1', $code),
+            'real_password' => $code,
+            'rep_pass' => Hash('sha1', $code),
             'status' => 10,
             'created_at' => time(),
             'updated_at' => time(),
@@ -80,10 +86,7 @@ class AuthController extends Controller
         $new_user->username = '№'.$new_user->id;
         $new_user->email = 'user'.$new_user->id.'@gmail.com';
         $new_user->save();
-        SmsVerification::create([
-            'phone' => $phone,
-            'status' => SmsVerification::STATUS_PENDING,
-        ]);
+
 
     }
 
