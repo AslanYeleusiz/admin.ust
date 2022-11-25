@@ -40,6 +40,10 @@ class AuthController extends Controller
                 'password' => [__('auth.Phone or password is incorrect')]
             ]);
         }
+        if(!$user->phone_activated){
+            $user->phone_activated = 1;
+            $user->save();
+        }
         $token = auth()->login($user);
         return $this->responseWithToken($token);
 //        return response()->json(auth()->attempt($credentials));
@@ -86,8 +90,6 @@ class AuthController extends Controller
         $new_user->username = '№'.$new_user->id;
         $new_user->email = 'user'.$new_user->id.'@gmail.com';
         $new_user->save();
-
-
     }
 
     /**
