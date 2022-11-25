@@ -14,20 +14,13 @@ use App\Helpers\Helper;
 
 class AuthController extends Controller
 {
+    protected $guard = 'api';
+
     public $smsService;
     public function __construct(SmsService $smsService)
     {
-        $this->smsService = $smsService;
-    }
-    protected $guard = 'api';
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
         $this->middleware('auth:api', ['except' => ['login', 'refresh', 'checkPhone']]);
+        $this->smsService = $smsService;
     }
 
     /**
