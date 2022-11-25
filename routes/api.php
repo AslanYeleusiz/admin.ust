@@ -68,6 +68,9 @@ Route::group(['middleware' => 'api'],function (){
             Route::get('/perevod/history', [PerevodHistoryController::class, 'index']);
             Route::get('/bonus/store', [PerevodHistoryController::class, 'store']);
         });
+        Route::group(['prefix' => 'auth'], function () {
+            Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+        });
     });
 
     Route::group(['prefix' => 'auth'], function () {
