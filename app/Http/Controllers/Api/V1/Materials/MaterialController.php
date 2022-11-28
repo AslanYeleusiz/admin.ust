@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use App\Services\V1\Material\MaterialCertificateGenerateService;
 //use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Api\V1\Material\MaterialZharialauRequest;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,8 @@ use App\Models\MaterialSubject;
 use App\Models\MaterialDirection;
 use App\Models\MaterialClass;
 use App\Models\MaterialSolds;
+use App\Models\Marapattau;
+use App\Models\Payment;
 use App\Models\User;
 use App\Helpers\Helper;
 use App\Helpers\Date;
@@ -22,6 +25,12 @@ use Carbon\Carbon;
 
 class MaterialController extends Controller
 {
+    public $service;
+    public function __construct(MaterialCertificateGenerateService $service)
+    {
+        $this->service = $service;
+    }
+
     public function materials(Request $request) {
         $title     = $request->title;
         $subject   = $request->subject;
@@ -219,7 +228,7 @@ class MaterialController extends Controller
     }
 
     public function purchase(Request $request, $id) {
-        $user = Auth::guard('api')->user();
+        $user = auth()->guard('api')->user();
         $material = Material::findOrFail($id);
         if($user->balance >= $request->sell){
             $balance = $user->balance - $request->sell;
@@ -232,6 +241,18 @@ class MaterialController extends Controller
                 'skidka' => 30,
                 'sell' => $request->sell,
             ]);
+            Payment::create([
+                'user_id' => $user->id,
+                'date' => time(),
+                'sum' => $request->sell,
+                'perevod_type' => 1,
+                'type' => 'Материал сатып алынды',
+                'kaldy' => $user->balance,
+                'minus' => 1,
+            ]);
+            $material_user = User::findOrFail($material->user_id);
+            $material_user->balance += $request->sell;
+            $material_user->save();
             return response()->json([
                 'purchase' => true,
             ]);
@@ -239,6 +260,13 @@ class MaterialController extends Controller
         return response()->json([
             'purchase' => false,
         ]);
+    }
+
+    public function getCertificate($id) {
+        $material = Material::findOrFail($id);
+        //База puth деген не? Онын орнына $material->id барып жатыр
+        $certificateName = $this->service->getSertificate($id, 1);
+        return response()->download(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$certificateName);
     }
 
     protected function validator(array $data)

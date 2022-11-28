@@ -41,7 +41,8 @@ Route::group(['prefix' => 'word', 'name'=>'materials'],function () {
     Route::get('/{slug}-{id}.html', [MaterialController::class, 'show'])->name('.show');
     Route::get('/{id}/download', [MaterialController::class, 'download'])->name('.download');
     Route::get('/{id}/materials', [MaterialController::class, 'user_materials'])->name('.user_materials');
-    Route::post('/{id}/purchase', [MaterialController::class, 'purchase'])->name('.purchase')->middleware(['api']);
+    Route::post('/{id}/purchase', [MaterialController::class, 'purchase'])->name('.purchase')->middleware('jwt.auth');
+    Route::get('/{id}/certificate', [MaterialController::class, 'getCertificate'])->name('.certificate');
     Route::post('/file/destroy', [MaterialController::class, 'destroyFile'])->name('.destroyFile');
     Route::get('/popular', [MaterialController::class, 'popular'])->name('.popular');
     Route::get('/getCategories', [MaterialController::class, 'getMaterialCategories'])->name('.getCategories');
