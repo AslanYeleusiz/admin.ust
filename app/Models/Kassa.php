@@ -10,6 +10,7 @@ class Kassa extends Model
     use HasFactory;
     protected $guarded=[];
     public $table='kassa';
+    public $timestamps=false;
 
     public function scopeFindOrCreate($query, $id)
     {
