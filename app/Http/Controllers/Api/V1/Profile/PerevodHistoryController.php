@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Payment;
+use App\Models\Kassa;
 use App\Services\BonusService;
 use Carbon\Carbon;
 
@@ -19,12 +20,17 @@ class PerevodHistoryController extends Controller
     }
 
     public function index(Request $request) {
+        $user = Auth::guard('api')->user();
+
+        $kassa = Kassa::findOrCreate(5);
+        $kassa->user_id = $user->id;
+        $kassa->save();
+
         $perevod_type = $request->perevod_type;
 
         if(!empty($request->get)) $getAll = $request->get;
         else $getAll = 5;
 
-        $user = Auth::guard('api')->user();
 
         $history = Payment::where('user_id', $user->id)
             ->whereNot('sum', 0)
