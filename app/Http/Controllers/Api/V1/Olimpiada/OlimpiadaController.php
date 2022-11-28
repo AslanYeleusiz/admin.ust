@@ -11,6 +11,8 @@ use App\Models\OlimpiadaTizim;
 use App\Models\OlimpiadaZhetekshi;
 use App\Models\perevodHistory;
 use App\Services\V1\Olimpiada\OlimpiadaTizimService;
+use App\Services\V1\Olimpiada\OlimpCertGenerateService;
+use Illuminate\Support\Facades\Storage;
 use App\Helpers\Helper;
 use App\Helpers\Date;
 use Carbon\Carbon;
@@ -18,9 +20,11 @@ use Carbon\Carbon;
 class OlimpiadaController extends Controller
 {
     public $tizimService;
-    public function __construct(OlimpiadaTizimService $tizimService)
+    public $certificateService;
+    public function __construct(OlimpiadaTizimService $tizimService, OlimpCertGenerateService $certificateService)
     {
         $this->tizimService = $tizimService;
+        $this->certificateService = $certificateService;
     }
 
     public function index(Request $request) {
@@ -189,6 +193,25 @@ class OlimpiadaController extends Controller
         ]);
     }
 
+    public function getCertificate($id) {
+        $o_katysu = OlimpiadaKatysu::with('o_tizim')->findOrFail($id);
+
+        $diplom_type = $this->calculate($o_katysu->o_tizim['result']);
+        if($diplom_type != 4)
+            $certificateName = $this->certificateService->getDiplom($o_katysu->o_tizim['code'], $diplom_type);
+        else $certificateName = $this->certificateService->getSertificate($o_katysu->o_tizim['code']);
+        return response()->download(Storage::disk('public')->path(OlimpiadaTizim::CERTIFICATE_PATH)."/".$certificateName);
+    }
+
+    public function thankLetter($id) {
+        $katysushy = OlimpiadaZhetekshi::with('o_katysu')->findOrFail($id);
+        $order = $katysushy->o_katysu->o_order_id;
+        $o_tizim = OlimpiadaTizim::where('o_order_id', $order)->first();
+        $certificateName = $this->certificateService->getAlgys($order, 1, $o_tizim->code);
+        return response()->download(Storage::disk('public')->path(OlimpiadaTizim::CERTIFICATE_PATH)."/".$certificateName);
+
+    }
+
     protected function cat_namer($category) {
         switch($category) {
             case 1: return 'тәрбиешілер';
@@ -196,6 +219,13 @@ class OlimpiadaController extends Controller
             case 3: return 'оқушылар';
             case 4: return 'студенттер';
         };
+    }
+
+    protected function calculate($durys) {
+        if($durys >= 19) return 1;
+        else if($durys >= 16) return 2;
+        else if($durys >= 13) return 3;
+        else return 4;
     }
 
 }

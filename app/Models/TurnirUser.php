@@ -11,6 +11,7 @@ class TurnirUser extends Model
     protected $table = 'turnir_user';
     protected $guarded = [];
     public $timestamps = false;
+    const CERTIFICATE_PATH = 'images/certificates';
     protected $attributes = [
         'work_user' => null,
         'success' => 0,

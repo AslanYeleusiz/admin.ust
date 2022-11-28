@@ -8,14 +8,24 @@ use App\Models\User;
 use App\Models\Turnirs;
 use App\Models\TurnirUser;
 use App\Models\TurnirZhetekshi;
+use App\Models\Payment;
 use App\Helpers\Helper;
 use App\Helpers\Date;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\V1\TurnirResource;
+use App\Services\V1\Turnir\TurnirCertificateGenerateService;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class TurnirController extends Controller
 {
+    public $certificateService;
+    public function __construct(TurnirCertificateGenerateService $certificateService)
+    {
+        $this->certificateService = $certificateService;
+    }
+
     public function index(Request $request) {
         $category = $request->category;
         $turnirs = Turnirs::isActive()
@@ -114,10 +124,64 @@ class TurnirController extends Controller
         ]);
     }
 
+    public function getCertificate($id) {
+
+        $turuser = TurnirUser::findOrFail($id);
+        if(!$turuser->success)
+            throw ValidationException::withMessages([
+                'not_purchased' => __('errors.not_purchased')
+            ]);
+        $diplom_type = $this->calculate($turuser['durys'],$turuser['kate']);
+        if($diplom_type < 4) $certificateName = $this->certificateService->getDiplom($id, $diplom_type);
+        else $certificateName = $this->certificateService->getSertificate($id);
+        return response()->download(Storage::disk('public')->path(TurnirUser::CERTIFICATE_PATH)."/".$certificateName);
+    }
+
+    public function oplataCertificate($id) {
+        $user = Auth::guard('api')->user();
+        $turuser = TurnirUser::findOrFail($id);
+        if(!$turuser->success){
+            if($user->balance >= $turuser->price){
+                $user->balance -= $turuser->price;
+                $user->save();
+                $turuser->success = 1;
+                $turuser->save();
+                Payment::create([
+                    'user_id' => $user->id,
+                    'date' => time(),
+                    'sum' => $turuser->price,
+                    'perevod_type' => 1,
+                    'type' => 'Турнирге төлем жасалынды',
+                    'kaldy' => $user->balance,
+                    'minus' => 1,
+                ]);
+                return response()->json([
+                    'success' => true,
+                    'balance' => $user->balance,
+                ]);
+            }
+            throw ValidationException::withMessages([
+                'no_balance' => __('errors.no_balance')
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'balance' => $user->balance,
+        ]);
+    }
+
+    public function thankLetter($id) {
+        $zhetekshi = TurnirZhetekshi::findOrFail($id);
+        $tusers = TurnirUser::where('user_id', $zhetekshi->user_id)->where('turnir_id', $zhetekshi->turnir_id)->where('zh_name', 'like', "%$zhetekshi->zhetekshi_name%")->first();
+        $certificateName = $this->certificateService->getAlgys($tusers->id);
+        return response()->download(Storage::disk('public')->path(TurnirUser::CERTIFICATE_PATH)."/".$certificateName);
+    }
+
     protected function calculate($durys, $kate) {
-        if($durys/($durys+$kate) >= 0.9) return 1;
-        else if($durys/($durys+$kate) >= 0.7) return 2;
-        else return 3;
+        if($durys >= 9) return 1;
+        else if($durys >= 7) return 2;
+        else if($durys >= 5) return 3;
+        else return 4;
     }
 
     protected function cat_namer($category) {

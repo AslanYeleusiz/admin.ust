@@ -11,6 +11,7 @@ class OlimpiadaTizim extends Model
     protected $guarded = [];
     protected $table = 'o_tizim';
     public $timestamps = false;
+    const CERTIFICATE_PATH = 'images/certificates';
 
     public function katysushy() {
         return $this->belongsTo(OlimpiadaKatysu::class, 'o_order_id', 'o_order_id');

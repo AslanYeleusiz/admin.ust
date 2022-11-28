@@ -98,10 +98,13 @@ Route::group(['prefix' => 'turnirs', 'name'=>'turnirs'],function () {
         Route::post('/zhetekshi/{id}/update', [TurnirZhetekshiController::class, 'update']);
         Route::get('/my_turnirs/active', [TurnirController::class, 'my_turnirs']);
         Route::get('/my_turnirs/muragat', [TurnirController::class, 'muragat']);
+        Route::get('/{id}/certificate', [TurnirController::class, 'getCertificate'])->where(['id' => '[0-9]+'])->name('.getCertificate')->middleware('auth');
+        Route::get('/{id}/thankLetter', [TurnirController::class, 'thankLetter'])->where(['id' => '[0-9]+'])->name('.thankLetter')->middleware('auth');
+        Route::get('/{id}/purchase', [TurnirController::class, 'oplataCertificate'])->name('oplataCertificate');
     });
 });
 
-Route::group(['prefix' => 'olimpiada', 'name'=>'turnirs'],function () {
+Route::group(['prefix' => 'olimpiada', 'name'=>'olimpiada'],function () {
     Route::get('/tury', [OlimpiadaController::class, 'index']);
     Route::group(['middleware' => ['api', 'jwt.auth']],function (){
         Route::get('/{slug}-{id}', [OlimpiadaController::class, 'qatysushylar']);
@@ -113,10 +116,13 @@ Route::group(['prefix' => 'olimpiada', 'name'=>'turnirs'],function () {
         Route::post('/test/start', [OlimpiadaTestController::class, 'test_start']);
         Route::post('/test/save/answer', [OlimpiadaTestController::class, 'save_answer']);
         Route::post('/test/finish', [OlimpiadaTestController::class, 'test_finish']);
+        Route::get('/{id}/certificate', [OlimpiadaController::class, 'getCertificate']);
+        Route::get('/{id}/thankLetter', [OlimpiadaController::class, 'thankLetter']);
         Route::get('/test/katemen-zhumys', [OlimpiadaTestController::class, 'katemen_zhumys']);
         Route::get('/olimpiadalarym/active', [OlimpiadaController::class, 'my_olimps']);
         Route::get('/olimpiadalarym/muragat', [OlimpiadaController::class, 'muragat']);
         Route::post('/zhetekshi/create', [OlimpiadaZhetekshiController::class, 'create']);
+        Route::post('/zhetekshi/{id}/update', [OlimpiadaZhetekshiController::class, 'update']);
         Route::post('/appeals/create', [OlimpiadaTestController::class, 'appeals_create']);
     });
 });

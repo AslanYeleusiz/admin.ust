@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api\V1\Materials;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Api\V1\Material\MaterialZharialauRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Material;
 use App\Models\MaterialSubject;
@@ -147,6 +149,13 @@ class MaterialController extends Controller
         }else{
             $user = Auth::guard('api')->user();
             $this->validator($request->all())->validate();
+            if($request->zhinak)
+                if($user->balance < 3000)
+                    throw ValidationException::withMessages([
+                        'balance_none' => true,
+                    ]);
+            $user->balance = $user->balance - 3000;
+            $user->save();
             Material::create([
                 'user_id' => $user->id,
                 'title' => $request->title,
@@ -167,7 +176,9 @@ class MaterialController extends Controller
             ]);
         }
 
-        return response()->json($request);
+        return response()->json([
+            'success' => true,
+        ]);
     }
 
     public function destroyFile(Request $request)
@@ -243,6 +254,9 @@ class MaterialController extends Controller
             'author' => ['required', 'string', 'max:255'],
             'file_doc' => ['required'],
             'work' => ['required', 'string'],
+            'zhanr' => 'required',
+            'zhanr2' => 'required',
+            'zhanr3' => 'required'
         ], $messages);
     }
 

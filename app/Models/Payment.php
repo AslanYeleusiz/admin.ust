@@ -10,5 +10,5 @@ class Payment extends Model
     use HasFactory;
     protected $guarded = [];
     protected $table = 'payment';
-
+    public $timestamps = false;
 }

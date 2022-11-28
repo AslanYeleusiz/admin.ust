@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Olimpiada;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Olimpiada\OlimpiadaUserRequest;
+use App\Http\Requests\Api\V1\Olimpiada\OlimpiadaZhetekshiUpdateRequest;
 use App\Models\OlimpiadaBagyty;
 use App\Models\OlimpiadaTury;
 use App\Models\OlimpiadaKatysu;
@@ -36,4 +37,15 @@ class OlimpiadaZhetekshiController extends Controller
         }
         return CustomerResource::collection(['zhetekshi' => $zhetekshi])->additional(['status'=>true]);
     }
+
+    public function update($id, OlimpiadaZhetekshiUpdateRequest $request) {
+        $zhetekshi = OlimpiadaZhetekshi::findOrFail($id)->update([
+            'name' => $request->name
+        ]);
+        return response()->json([
+            'zhetekshi' => $zhetekshi,
+            'status' => true
+        ]);
+    }
+
 }

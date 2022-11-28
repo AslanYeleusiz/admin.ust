@@ -28,6 +28,10 @@ class OlimpiadaKatysu extends Model
     public function o_tizim() {
         return $this->hasOne(OlimpiadaTizim::class, 'o_order_id', 'o_order_id');
     }
+    public function o_zhetekshi() {
+        return $this->belongsTo(OlimpiadaZhetekshi::class, 'o_zhetekshi_id');
+    }
+
 
 
 }

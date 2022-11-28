@@ -11,4 +11,9 @@ class OlimpiadaZhetekshi extends Model
     protected $guarded = [];
     protected $table = 'o_zhetekshi';
     public $timestamps = false;
+
+    public function o_katysu() {
+        return $this->hasOne(OlimpiadaKatysu::class, 'o_zhetekshi_id');
+    }
+
 }

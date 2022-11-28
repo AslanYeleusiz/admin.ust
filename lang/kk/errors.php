@@ -18,6 +18,8 @@ return [
     'model_not_found' => ':model табылмады',
     'not_found' => 'Бет табылмады',
     'the_code_or_number_incorrect' => 'Код немесе нөмір қате',
+    'no_balance' => 'Сізде қаражат жеткіліксіз',
+    'not_purchased' => 'Сатып алынбады',
 
     'limited_sms' => 'Біраздан соң қайталап көріңіз',
       'user' => [
