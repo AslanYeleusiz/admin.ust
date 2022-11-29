@@ -25,13 +25,9 @@ class TurnirZhetekshiController extends Controller
             'turnir_id' => $request->turnir_id,
             'date' => Carbon::now(),
         ]);
-        $tusers = TurnirUser::where('user_id', $user->id)->where('turnir_id', $request->turnir_id)->get();
-        foreach($tusers as $tuser){
-            if(!$tuser->zh_name){
-                $tuser->zh_name = $request->zhetekshi_name;
-                $tuser->save();
-            }
-        }
+        $tusers = TurnirUser::where('user_id', $user->id)->where('turnir_id', $request->turnir_id)->whereNull('zh_name')->update([
+            'zh_name' => $zhetekshi->zhetekshi_name
+        ]);
         return response()->json(['zhetekshi' => $zhetekshi]);
     }
 
