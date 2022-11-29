@@ -23,18 +23,15 @@ class ResetPasswordController extends Controller
 
     public function sendSmsResetPassword(Request $request) {
         $phone = Helper::clearPhoneMask($request->phone);
+        $user = User::where('tel_num', $request->phone)->first();
         $this->smsService->checkLimitSms($phone);
 //        $code = 'password';
-        $code = $this->smsService->generateCode();
-        $msg = __('auth.new_password') . $code;
+        $code = $user->real_password;
+        $msg = "<a href='https://ust.kz'>ust.kz</a> Жеке кабинетке кіру Тел: +7".$request->phone.' құпия сөз: '. $code;
         $this->smsService->send($msg, $phone);
         SmsVerification::create([
             'phone' => $phone,
             'status' => SmsVerification::STATUS_PENDING,
-        ]);
-        User::where('tel_num', $request->phone)->first()->update([
-            'password' => Hash('sha1', $code),
-            'real_password' => $code,
         ]);
         return response()->json([
             'success' => true,
