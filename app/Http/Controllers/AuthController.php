@@ -64,7 +64,7 @@ class AuthController extends Controller
         $phone = Helper::clearPhoneMask($request->phone);
 //        $code = 'password';
         $code = $this->smsService->generateCode();
-        $msg = __('auth.new_password') . $code;
+        $msg = "<a href='https://ust.kz'>ust.kz</a> Жеке кабинетке кіру Тел: +7".$request->phone.' құпия сөз: '. $code;
         $this->smsService->send($msg, $phone);
 
         $email = $this->smsService->generateCode();
