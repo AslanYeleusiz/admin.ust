@@ -27,7 +27,7 @@ class ResetPasswordController extends Controller
         $this->smsService->checkLimitSms($phone);
 //        $code = 'password';
         $code = $user->real_password;
-        $msg = "<a href='https://ust.kz'>ust.kz</a> Жеке кабинетке кіру Тел: +7".$request->phone.' құпия сөз: '. $code;
+        $msg = "ust.kz Жеке кабинетке кіру Тел: +7".$request->phone.' құпия сөз: '. $code;
         $this->smsService->send($msg, $phone);
         SmsVerification::create([
             'phone' => $phone,
