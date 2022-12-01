@@ -5,19 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Marapattau extends Model
+class AlgisXat extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    public $table='marapattau';
+    public $table='algis_xat';
     public $timestamps=false;
-
-    public function scopeFindOrCreate($query, $id)
-    {
-        $obj = $query->find($id);
-        return $obj ?: new static;
-    }
-
     protected $attributes = [
         'oblis' => '',
         'audan' => '',

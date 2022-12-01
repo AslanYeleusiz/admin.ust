@@ -33,7 +33,7 @@ class UserController extends Controller
             ->when($email, fn ($query) => $query->where('email', 'like', "%$email%"))
             ->when($phone, fn ($query) => $query->where('tel_num', 'like', "%$phone%"))
             ->when($sex, fn ($query) => $query->where('sex', 'like', "%$sex%"))
-            ->latest()
+            ->orderByDesc('id')
             ->paginate($request->input('per_page', 20))
             ->appends($request->except('page'));
 
@@ -60,9 +60,9 @@ class UserController extends Controller
      */
     public function store(UserSaveRequest $request)
     {
-        return redirect()->route('admin.users.index')->with('success','Успешно добавлено');
         $user = new User();
         $this->userService->save($user, $request);
+        return redirect()->route('admin.users.index')->with('success','Успешно добавлено');
     }
 
     /**

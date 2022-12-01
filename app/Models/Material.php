@@ -49,6 +49,26 @@ class Material extends Model
         return $this->hasOne(MaterialCertificate::class, 'material_id', 'id');
     }
 
+    public function marapat(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Marapattau::class, 'ser_id', 'id');
+    }
+
+    public function algys(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(AlgisXat::class, 'ser_id', 'id');
+    }
+
+    public function kurmet(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Kurmet::class, 'ser_id', 'id');
+    }
+
+
+
+
+
+
     public function scopeNotDeletes($query)
     {
         return $query->where('deleteorder', '!=', 2);

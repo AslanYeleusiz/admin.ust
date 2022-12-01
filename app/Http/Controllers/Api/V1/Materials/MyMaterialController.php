@@ -32,13 +32,16 @@ class MyMaterialController extends Controller
                 }
             )
             ->notDeletes()
+            ->with(['algys', 'kurmet'])
             ->orderBy('date_edit','desc')
             ->paginate(10);
+
 
         foreach ($materials as $material) {
             $material->date = Date::dmYKZ($material->date);
             $material->lat_title = Helper::translate($material->title);
         }
+
 
         $data = [
             'count_materials' => $materials->total(),

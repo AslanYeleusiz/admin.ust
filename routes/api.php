@@ -57,7 +57,6 @@ Route::group(['middleware' => 'api'],function (){
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::group(['prefix' => 'menin-materialdarym'],function () {
             Route::get('/', [MyMaterialController::class, 'myMaterials'])->name('myMaterials');
-            Route::get('/{id}/certificate', [MyMaterialController::class, 'getCertificate'])->name('certificate');
             Route::post('/{id}/delete', [MyMaterialController::class, 'delete'])->name('delete');
             Route::post('/{id}/update', [MyMaterialController::class, 'update'])->name('update');
             Route::get('/{slug}-{id}.html', [MyMaterialController::class, 'show'])->name('show');
@@ -72,6 +71,13 @@ Route::group(['middleware' => 'api'],function (){
         Route::group(['prefix' => 'auth'], function () {
             Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
         });
+        Route::group(['prefix' => 'word'], function () {
+            Route::get('/{id}/buyAlgys', [MaterialController::class, 'buyAlgys'])->name('.buyAlgys');
+            Route::get('/{id}/getKurmet', [MaterialController::class, 'getKurmet'])->name('.getKurmet');
+            Route::get('/{id}/buyKurmet', [MaterialController::class, 'buyKurmet'])->name('.buyKurmet');
+            Route::get('/{id}/getAlgys', [MaterialController::class, 'getAlgys'])->name('.getAlgys');
+        });
+
     });
 
     Route::group(['prefix' => 'auth'], function () {

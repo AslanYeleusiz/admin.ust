@@ -17,6 +17,8 @@ use App\Models\MaterialDirection;
 use App\Models\MaterialClass;
 use App\Models\MaterialSolds;
 use App\Models\Marapattau;
+use App\Models\AlgisXat;
+use App\Models\Kurmet;
 use App\Models\Payment;
 use App\Models\User;
 use App\Helpers\Helper;
@@ -263,11 +265,153 @@ class MaterialController extends Controller
     }
 
     public function getCertificate($id) {
-        $material = Material::findOrFail($id);
-        //База puth деген не? Онын орнына $material->id барып жатыр
-        $certificateName = $this->service->getSertificate($id, 1);
+        $material = Material::with('marapat')->findOrFail($id);
+        if($material->marapat){
+            if(file_exists(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$material->marapat['puth'])){
+                return response()->download(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$material->marapat['puth']);
+            }
+            else{
+                $certificateName = $this->service->getSertificate($id, 1);
+                Marapattau::find($material->marapat['id'])->update([
+                    'puth' => $certificateName
+                ]);
+            }
+        }
+        else {
+            $now = Carbon::now();
+            $marapat = new Marapattau();
+            $marapat->user_id = $material->user_id;
+            $marapat->title_file = $material->title;
+            $marapat->ser_id = $material->id;
+            $marapat->ser_fio = $material->author;
+            $marapat->info = $material->work;
+            $marapat->date = $now;
+            $marapat->oplata = 1;
+            $marapat->certtype = 1;
+            $certificateName = $this->service->getSertificate($id, 1);
+            $marapat->puth = $certificateName;
+            $marapat->save();
+        }
         return response()->download(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$certificateName);
     }
+
+    public function buyAlgys($id) {
+        $user = auth()->guard('api')->user();
+        $material = Material::with('algys')->findOrFail($id);
+        if(!$material->algys){
+            if($user->balance < 1500)
+                throw ValidationException::withMessages([
+                    'balance' => [__('errors.no_balance')]
+                ]);
+
+            $user->balance -= 1500;
+            $user->save();
+            $certificateName = $this->service->getAlgys($id, 1);
+            $now = Carbon::now();
+            $algis = new AlgisXat();
+            $algis->puth = $certificateName;
+            $algis->user_id = $material->user_id;
+            $algis->title_file = $material->title;
+            $algis->ser_id = $material->id;
+            $algis->ser_fio = $material->author;
+            $algis->info = $material->work;
+            $algis->date = $now;
+            $algis->oplata = 1;
+            $algis->certtype = 0;
+            $algis->success = 1;
+            $algis->save();
+
+            return response()->json([
+                'ser_id' => $algis->id,
+                'balance' => $user->balance,
+            ]);
+        }
+        throw ValidationException::withMessages([
+            'has_material' => [__('error.file.is_had')]
+        ]);
+
+    }
+
+
+
+    public function getAlgys($id) {
+        $material = Material::with('algys')->findOrFail($id);
+        if(!$material->algys){
+            throw ValidationException::withMessages([
+                'error' => [__('errors.internal_server_error')]
+            ]);
+        }
+        if(file_exists(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$material->algys['puth'])){
+            return response()->download(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$material->algys['puth']);
+        }
+        else{
+            $certificateName = $this->service->getAlgys($id, 1);
+            AlgisXat::find($material->algys['id'])->update([
+                'puth' => $certificateName
+            ]);
+            return response()->download(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$certificateName);
+        }
+    }
+
+    public function buyKurmet($id) {
+        $user = auth()->guard('api')->user();
+        $material = Material::with('kurmet')->findOrFail($id);
+        if(!$material->kurmet){
+            if($user->balance < 2000)
+                throw ValidationException::withMessages([
+                    'balance' => [__('errors.no_balance')]
+                ]);
+
+
+            $certificateName = $this->service->getKurmet($id, 1);
+            $now = Carbon::now();
+            $kurmet = new Kurmet();
+            $kurmet->puth = $certificateName;
+            $kurmet->user_id = $material->user_id;
+            $kurmet->title_file = $material->title;
+            $kurmet->ser_id = $material->id;
+            $kurmet->ser_fio = $material->author;
+            $kurmet->info = $material->work;
+            $kurmet->date = $now;
+            $kurmet->certtype = 0;
+            $kurmet->success = 1;
+            $kurmet->kurmet = 0;
+            $kurmet->save();
+            $user->balance -= 2000;
+            $user->save();
+
+            return response()->json([
+                'ser_id' => $kurmet->id,
+                'balance' => $user->balance,
+            ]);
+        }
+        throw ValidationException::withMessages([
+            'has_material' => [__('error.file.is_had')]
+        ]);
+    }
+
+
+    public function getKurmet($id) {
+        $material = Material::with('kurmet')->findOrFail($id);
+        if(!$material->kurmet){
+            throw ValidationException::withMessages([
+                'error' => [__('errors.internal_server_error')]
+            ]);
+        }
+        if(file_exists(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$material->kurmet['puth'])){
+            return response()->download(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$material->kurmet['puth']);
+        }
+        else{
+            $certificateName = $this->service->getKurmet($id, 1);
+            Kurmet::find($material->kurmet['id'])->update([
+                'puth' => $certificateName
+            ]);
+            return response()->download(Storage::disk('public')->path(Material::CERTIFICATE_PATH)."/".$certificateName);
+        }
+    }
+
+
+
 
     protected function validator(array $data)
     {
