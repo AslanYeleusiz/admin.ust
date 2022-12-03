@@ -64,6 +64,13 @@ class Material extends Model
         return $this->hasOne(Kurmet::class, 'ser_id', 'id');
     }
 
+    public function skidka(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(MaterialSkidka::class, 'doc_id', 'id');
+    }
+
+
+
 
 
 

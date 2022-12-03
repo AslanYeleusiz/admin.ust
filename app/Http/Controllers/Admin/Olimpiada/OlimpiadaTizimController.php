@@ -26,7 +26,7 @@ class OlimpiadaTizimController extends Controller
             ->when($katysushy_name, fn($query)=>$query->where('katysushy_name','like',"%$katysushy_name%"))
             ->when($code, fn($query)=>$query->where('code',$code))
             ->when($obwcode, fn($query)=>$query->where('obwcode',$obwcode))
-            ->latest('id')
+            ->orderByDesc('id')
             ->paginate($request->input('per_page', 20))
             ->appends($request->except('page'));
         return Inertia::render('Admin/OlimpiadaTizim/Index', [

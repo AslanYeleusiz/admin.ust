@@ -158,7 +158,7 @@
                                         :key="'material' + material.id"
                                     >
                                         <td>{{ index+1 }}</td>
-                                        <td>{{ material.user.id }}</td>
+                                        <td>{{ material.user_id }}</td>
                                         <td>{{ material.doc_name }}</td>
                                         <td>{{ material.username }}</td>
                                         <td>{{ months[material.zhmonth-1].month }}</td>

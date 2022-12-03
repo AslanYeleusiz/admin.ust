@@ -10,6 +10,7 @@ use App\Models\Balance;
 use App\Models\Material;
 use App\Models\MaterialCertificateHonor;
 use App\Models\MaterialCertificateThankLetter;
+use App\Models\MaterialSolds;
 use App\Services\V1\MaterialCertificateGenerateService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -17,6 +18,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\MessageBag;
+use App\Support\Collection;
 use Carbon\Carbon;
 
 class MyMaterialController extends Controller
@@ -25,28 +27,37 @@ class MyMaterialController extends Controller
     {
         $type   =   $request->type;
         $user   =   Auth::guard('api')->user();
-        $materials = Material::where('user_id', $user->id)
+        $materials = Material::select(['id','title', 'date', 'description', 'author', 'download', 'view', 'sell'])
+            ->where('user_id', $user->id)
             ->where(
                 function($query) use ($type) {
                     if($type == 2) $query->where('zhinak', 1);
                 }
             )
             ->notDeletes()
-            ->with(['algys', 'kurmet'])
-            ->orderBy('date_edit','desc')
-            ->paginate(10);
+            ->with(['algys:id,ser_id', 'kurmet:id,ser_id'])
+            ->orderBy('date_edit','desc')->get();
 
+        if($type != 2){
+            $materialsSell = MaterialSolds::where('user_id', $user->id)->has('material')->with(['material:id,title,date,description,author,download,view,sell','material.algys', 'material.kurmet'])->get();
+
+            foreach ($materialsSell as $material) {
+                $material->material->purchase = 1;
+                $materials = $materials->push($material->material);
+            }
+        }
+
+
+
+        $materials = $materials->paginate(10);
 
         foreach ($materials as $material) {
             $material->date = Date::dmYKZ($material->date);
             $material->lat_title = Helper::translate($material->title);
+            if(!isset($material->purchase)) $material->purchase = 0;
         }
-
-
         $data = [
-            'count_materials' => $materials->total(),
-            'COUNT'           => Material::count(),
-            'materials'       => $materials,
+            'materials'       => $materials
         ];
         return $this->sendResponse($data);
     }

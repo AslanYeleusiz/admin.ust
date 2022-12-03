@@ -23,14 +23,14 @@ class DeletedMaterialController extends Controller
         $author = $request->author;
 
         $status = $request->input('deleteorder', 'all');
-        $deletedMaterials = Material::when($title, fn($query) => $query->where('title', 'like', "%$title%"))
+        $deletedMaterials = Material::select(['id', 'author', 'title', 'zhanr', 'zhanr2', 'zhanr3', 'deleteordertext','deleteorder', 'chec'])
+        ->when($title, fn($query) => $query->where('title', 'like', "%$title%"))
         ->when($subject, fn($query) => $query->where('zhanr', 'like', "%$subject%"))
         ->when($direction, fn($query) => $query->where('zhanr2', 'like', "%$direction%"))
         ->when($class, fn($query) => $query->where('zhanr3', 'like', "%$class%"))
         ->when($author, fn($query) => $query->where('author', 'like', "%$author%"))
         ->where('deleteorder', '>', 0)
         ->when($status !== 'all', fn ($query) => $query->where('deleteorder', $status))
-        ->with(['user'])
         ->latest('id')
         ->paginate($request->input('per_page', 20))
         ->appends($request->except('page'));

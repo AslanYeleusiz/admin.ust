@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Material\MaterialSubjectController;
 use App\Http\Controllers\Admin\Material\MaterialClassController;
 use App\Http\Controllers\Admin\Material\MaterialDirectionController;
 use App\Http\Controllers\Admin\Material\MaterialZhinakController;
+use App\Http\Controllers\Admin\Material\MaterialSkidkaController;
 use App\Http\Controllers\Admin\Qmg\QmgSubjectsController;
 use App\Http\Controllers\Admin\Qmg\QmgBolimController;
 use App\Http\Controllers\Admin\Turnir\TurnirController;
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::resource('materials/directions', MaterialDirectionController::class)->except(['show'])->names('materialDirections');
         Route::resource('materials/classes', MaterialClassController::class)->except(['show'])->names('materialClasses');
         Route::resource('materials/zhinak', MaterialZhinakController::class)->except(['show', 'create', 'store'])->names('materialZhinak');
+        Route::resource('materials/skidka', MaterialSkidkaController::class)->except(['show'])->names('materialSkidka');
 
 
         Route::resource('qmg/subject', QmgSubjectsController::class)->except(['show'])->names('qmgSubjects');

@@ -26,7 +26,8 @@ class UserController extends Controller
         $phone = $request->phone;
         $id = $request->id;
         $sex = $request->sex;
-        $users = User::when($username, fn ($query) => $query->where('username', 'like', "%$username%"))
+        $users = User::select(['id','username','s_name','l_name','email','tel_num','real_password','user_status_id',])
+            ->when($username, fn ($query) => $query->where('username', 'like', "%$username%"))
             ->when($s_name, fn ($query) => $query->where('s_name', 'like', "%$s_name%"))
             ->when($l_name, fn ($query) => $query->where('l_name', 'like', "%$l_name%"))
             ->when($id, fn ($query) => $query->where('id', $id))

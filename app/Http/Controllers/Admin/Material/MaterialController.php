@@ -30,14 +30,14 @@ class MaterialController extends Controller
         $direction = $request->direction;
         $class = $request->class;
         $raw = $request->raw;
-        $materials = Material::when($title, fn ($query) => $query->where('title', 'like', "%$title%"))
+        $materials = Material::select(['id','title', 'description', 'zhanr', 'zhanr2', 'zhanr3', 'raw'])
+        ->when($title, fn ($query) => $query->where('title', 'like', "%$title%"))
         ->when($description, fn ($query) => $query->where('description', 'like', "%$description%"))
         ->when($subject, fn ($query) => $query->where('zhanr', 'like', "%$subject%"))
         ->when($raw, fn ($query) => $query->where('raw', 'like', "%$raw%"))
         ->when($direction, fn ($query) => $query->where('zhanr2', $direction))
         ->when($class, fn ($query) => $query->where('zhanr3', $class))
         ->orderByDesc('id')
-        ->with('user')
         ->paginate($request->input('per_page', 20))
             ->appends($request->except('page'));
         $materialClasses = MaterialClass::get();

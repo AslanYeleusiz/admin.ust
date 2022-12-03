@@ -24,7 +24,8 @@ class MaterialZhinakController extends Controller
         $zhyear   = $request->zhyear;
         $step   = $request->step;
 
-        $materials = MaterialZhinak::when($user_id, fn($query) => $query->where('user_id', $user_id))
+        $materials = MaterialZhinak::select(['id', 'doc_name', 'username', 'zhmonth', 'zhyear', 'step','user_id'])
+            ->when($user_id, fn($query) => $query->where('user_id', $user_id))
             ->when($doc_name, fn($query) => $query->where('doc_name', 'like', "%$doc_name%"))
             ->when($username, fn($query) => $query->where('username', 'like', "%$username%"))
             ->when($zhmonth, fn($query) => $query->where('zhmonth', $zhmonth))

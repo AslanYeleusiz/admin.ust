@@ -40,7 +40,7 @@ class MaterialController extends Controller
         $class     = $request->class;
         $sell      = $request->sell;
 
-        $materials = Material::select(['id', 'title', 'description', 'zhanr', 'zhanr2', 'zhanr3', 'raw', 'date', 'chec', 'sell', 'author', 'work', 'view', 'download', 'likes', 'zhinak'])
+        $materials = Material::select(['id', 'title', 'description', 'raw', 'sell', 'author', 'view', 'download', 'likes'])
             ->when($title, fn($query) => $query->where('title', 'like', "%$title%"))
             ->where(
                 function ($query) use ( $subject, $direction, $class, $sell) {
@@ -90,17 +90,19 @@ class MaterialController extends Controller
     }
 
     public function show($slug,$id){
-        $material = Material::with(['user', 'isPurchased'])->findOrFail($id);
+        $material = Material::select(['id', 'title', 'description', 'author', 'user_id', 'file_doc', 'raw', 'filename', 'sell', 'view', 'download'])
+            ->with(['isPurchased', 'skidka'])
+            ->findOrFail($id);
         $material->increment('view');
         $material->lat_title = Helper::translate($material->title);
         $material->date = Date::dmYKZ($material->date);
         if(!empty($material->isPurchased)) $isPurchased = 1;
         else $isPurchased = 0;
         $authors_materials = Material::where('user_id', $material->user_id)->take(3)->get();
-        $others = Material::when($material->zhanr, fn($query) => $query->where('zhanr', 'like', "%$material->zhanr%"))
-            ->when($material->zhanr2, fn($query) => $query->where('zhanr2', 'like', "%$material->zhanr2%"))
-            ->when($material->zhanr3, fn($query) => $query->where('zhanr3', 'like', "%$material->zhanr3%"))
-        ->take(5)->get();
+        $others = Material::where('zhanr', 'like', "$material->zhanr%")
+            ->where('zhanr2', 'like', "$material->zhanr2%")
+            ->where('zhanr3', 'like', "$material->zhanr3%")
+            ->take(5)->get();
         foreach ($others as $other) {
             $other->date = Date::dmYKZ($other->date);
             $other->lat_title = Helper::translate($other->title);
@@ -240,7 +242,7 @@ class MaterialController extends Controller
             MaterialSolds::create([
                 'user_id' => $user->id,
                 'doc_id' => $material->id,
-                'skidka' => 30,
+                'skidka' => $request->skidka,
                 'sell' => $request->sell,
             ]);
             Payment::create([

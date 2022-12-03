@@ -106,6 +106,7 @@
                             "admin.materialDirections",
                             "admin.materialSubjects",
                             "admin.materialZhinak",
+                            "admin.materialSkidka",
                         ],
                         route_name: "",
                         childs_items: [{
@@ -144,6 +145,13 @@
                                 route_name: "admin.materialZhinak.index",
                                 menu_active: ["admin.materialZhinak"],
                             },
+                            {
+                                name: "Скидка",
+                                font: "fa-file",
+                                route_name: "admin.materialSkidka.index",
+                                menu_active: ["admin.materialSkidka"],
+                            },
+
 
                         ],
                     },
