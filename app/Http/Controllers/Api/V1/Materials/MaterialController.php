@@ -254,9 +254,19 @@ class MaterialController extends Controller
                 'kaldy' => $user->balance,
                 'minus' => 1,
             ]);
+
             $material_user = User::findOrFail($material->user_id);
             $material_user->balance += $request->sell;
             $material_user->save();
+            Payment::create([
+                'user_id' => $material_user->id,
+                'date' => time(),
+                'sum' => $request->sell,
+                'perevod_type' => 1,
+                'type' => 'Материал сатылды',
+                'kaldy' => $material_user->balance,
+                'minus' => 0,
+            ]);
             return response()->json([
                 'purchase' => true,
             ]);
@@ -334,8 +344,6 @@ class MaterialController extends Controller
 
     }
 
-
-
     public function getAlgys($id) {
         $material = Material::with('algys')->findOrFail($id);
         if(!$material->algys){
@@ -363,8 +371,6 @@ class MaterialController extends Controller
                 throw ValidationException::withMessages([
                     'balance' => [__('errors.no_balance')]
                 ]);
-
-
             $certificateName = $this->service->getKurmet($id, 1);
             $now = Carbon::now();
             $kurmet = new Kurmet();
@@ -381,7 +387,6 @@ class MaterialController extends Controller
             $kurmet->save();
             $user->balance -= 2000;
             $user->save();
-
             return response()->json([
                 'ser_id' => $kurmet->id,
                 'balance' => $user->balance,

@@ -26,8 +26,11 @@ class MyMaterialController extends Controller
     public function myMaterials(Request $request): \Illuminate\Http\JsonResponse
     {
         $type   =   $request->type;
+        $filter =   $request->filter;
         $user   =   Auth::guard('api')->user();
-        $materials = Material::select(['id','title', 'date', 'description', 'author', 'download', 'view', 'sell'])
+        $materials = collect();
+        if($filter < 2){
+            $materials = Material::select(['id','title', 'date', 'description', 'author', 'download', 'view', 'sell'])
             ->where('user_id', $user->id)
             ->where(
                 function($query) use ($type) {
@@ -37,8 +40,8 @@ class MyMaterialController extends Controller
             ->notDeletes()
             ->with(['algys:id,ser_id', 'kurmet:id,ser_id'])
             ->orderBy('date_edit','desc')->get();
-
-        if($type != 2){
+        }
+        if($type != 2 && $filter != 1){
             $materialsSell = MaterialSolds::where('user_id', $user->id)->has('material')->with(['material:id,title,date,description,author,download,view,sell','material.algys', 'material.kurmet'])->get();
 
             foreach ($materialsSell as $material) {
@@ -46,18 +49,14 @@ class MyMaterialController extends Controller
                 $materials = $materials->push($material->material);
             }
         }
-
-
-
         $materials = $materials->paginate(10);
-
         foreach ($materials as $material) {
             $material->date = Date::dmYKZ($material->date);
             $material->lat_title = Helper::translate($material->title);
             if(!isset($material->purchase)) $material->purchase = 0;
         }
         $data = [
-            'materials'       => $materials
+            'materials' => $materials
         ];
         return $this->sendResponse($data);
     }

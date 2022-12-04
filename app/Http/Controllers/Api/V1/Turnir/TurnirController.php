@@ -28,7 +28,7 @@ class TurnirController extends Controller
 
     public function index(Request $request) {
         $category = $request->category;
-        $turnirs = Turnirs::isActive()
+        $turnirs = Turnirs::select(['id','name'])->isActive()
             ->where('category', $category)
             ->get();
         $now = Carbon::now();
@@ -103,7 +103,7 @@ class TurnirController extends Controller
 
     public function muragat(Request $request) {
         $user = Auth::guard('api')->user();
-        $tuser = TurnirUser::where('user_id',$user->id)
+        $tuser = TurnirUser::with('turnir')->where('user_id',$user->id)
             ->whereYear('date', '=', $request->year)
             ->get();
         $zhetekshi = TurnirZhetekshi::where('user_id',$user->id)
@@ -112,6 +112,10 @@ class TurnirController extends Controller
 
         foreach($tuser as $t){
             $t->month = date('n', strtotime($t->date));
+            if($t['go']) $t['diplom'] = $this->calculate($t['durys'],$t['kate']);
+            $t->lat_name = Helper::translate($t->turnir_name);
+            $t->edit = 0;
+            $t->loading = 0;
         };
         foreach($zhetekshi as $t){
             $t->month = date('n', strtotime($t->date));
